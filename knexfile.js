@@ -4,6 +4,7 @@ module.exports = {
       connection: {
          filename: './database/hackathon.db3'
       },
+      useNullAsDefault: true,
       migrations: {
          directory: './database/migrations'
       },
