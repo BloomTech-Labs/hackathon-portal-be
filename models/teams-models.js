@@ -5,6 +5,6 @@ module.exports = {
 };
 
 async function find() {
-    return await db('users').select('id', 'username', 'email');
+    return await db('teams')
 }
 
