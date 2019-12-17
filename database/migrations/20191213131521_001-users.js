@@ -9,6 +9,7 @@ exports.up = function(knex) {
       .unique()
       tbl.string('password')
       .notNullable()
+      tbl.boolean('email_Verified')
   })
 };
 

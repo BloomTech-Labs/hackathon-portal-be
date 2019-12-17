@@ -16,6 +16,7 @@ router.get('/:id', async(req, res) => {
     try {
         const hackathon = await hackathonDb.findById(id)
         hackathon.users = await userHackathon.findByHackathon(id)
+        hackathon.teams = await userHackathon.findTeamsByHackathonId(id)
         res.status(200).json(hackathon)
     } catch(err) {
         console.log(err)
