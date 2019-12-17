@@ -9,5 +9,7 @@ async function find() {
 }
 
 async function findById(id) {
-    return await db('hackathons').where({ id }).first()
+    const hack =  await db('hackathons').where({ id }).first()
+    if (hack) return hack
+    return -1
 }
