@@ -30,3 +30,4 @@ exports.down = function(knex) {
     return knex.schema
     .dropTableIfExists('user_hackathons')
 };
+  
