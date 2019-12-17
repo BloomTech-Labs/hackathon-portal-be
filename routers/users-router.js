@@ -23,7 +23,7 @@ router.get('/:id', async(req, res) => {
 })
 
 
-router.get('/username/:username', async (req, res) => {
+router.get('/u/:username', async (req, res) => {
     const {username} = req.params;
     try {
         const user = await userDb.findByUsername(username)

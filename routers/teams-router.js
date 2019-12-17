@@ -11,15 +11,16 @@ router.get('/', async(req, res) => {
     }
 })
 
-router.get('/:id', async(req, res) => {
-    const {id} = req.params
-    try {
-        const teams = await teamDb.findById(id)
-        teams.users = await userHackathonDb.findUsersByTeamId(id)
-        res.status(200).json(teams)
-    } catch(err) {
-        console.log(err)
-    }
-})
+// router.get('/:id', async(req, res) => {
+//     const {id} = req.params
+//     try {
+//         const team = await teamDb.findById(id)
+//         // const hackathon_id = team.hackathon_id
+//         // team.users = await userHackathonDb.findUsersByTeamId(id, hackathon_id)
+//         res.status(200).json(team)
+//     } catch(err) {
+//         console.log(err)
+//     }
+// })
 
 module.exports = router;

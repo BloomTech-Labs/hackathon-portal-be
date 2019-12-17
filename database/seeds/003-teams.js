@@ -16,7 +16,8 @@ exports.seed = function (knex) {
         { name: 'Team Pepe', hackathon_id: 3 },
         { name: 'Fruit Flies & Stuff', hackathon_id: 3 },
         { name: 'Clean Water', hackathon_id: 3 },
-        { name: 'Quesadilla Finder', hackathon_id: 3 }
+        { name: 'Quesadilla Finder', hackathon_id: 3 },
+        { name: 'Quesadilla Finder', hackathon_id: 4 }
       ]);
     });
 };
