@@ -15,19 +15,13 @@ router.get('/:id', async(req, res) => {
     const {id} = req.params;
     try {
         const hackathon = await hackathonDb.findById(id)
-        const hackathon_teams = await userHackathon.findTeamsByHackathonId(id)
-        hackathon.teams = hackathon_teams;
-
-       async function map(arr, cb) {
-            let new_arr = [];
-            for (let i=0; i<arr.length; i++) {
-                new_arr[i] = arr[i]
-                new_arr[i].users = await cb(hackathon.id)
-            }
-            return res.status(200).json(hackathon)
-        }
-        map(hackathon_teams, userHackathon.findUserByHackathon)
+        if (hackathon) {
+        res.status(200).json(hackathon)
+    } else {
+        res.status(404).json({ error: 'That hackathon does not exist' })
+    }
     } catch(err) {
+        res.status(500).json({ error: 'Could not get hackathon' })
         console.log(err)
     }
 })
