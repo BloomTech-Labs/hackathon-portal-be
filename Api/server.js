@@ -29,7 +29,7 @@ server.get('/',  (req, res) => {
    res.send('Server is running!');
 });
 
-server.get("/api/external", checkJwt, (req, res) => {
+server.get("/api/external", jwtCheck, (req, res) => {
    res.send({
      msg: "Your Access Token was successfully validated!"
    });
