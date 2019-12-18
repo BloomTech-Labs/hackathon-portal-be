@@ -33,7 +33,7 @@ async function remove(id) {
         .del();
 }
 
-async function update(changes, id) {
+async function update(id, changes) {
     return db('teams')
         .where({ id })
         .update(changes);
