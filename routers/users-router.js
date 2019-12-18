@@ -1,4 +1,5 @@
 const userDb = require('../models/users-model');
+const userHackathonDb = require('../models/user_hackathons-model')
 const router = require('express').Router();
 
 router.get('/', async(req, res) => {
@@ -9,5 +10,39 @@ router.get('/', async(req, res) => {
         console.log(err)
     }
 })
+
+router.get('/:id', async(req, res) => {
+    const {id} = req.params;
+    try {
+        const user = await userDb.findById(id)
+        user.hackathons = await userHackathonDb.findHackathonByUserId(id)
+        res.status(200).json(user)
+    } catch(err) {
+        console.log(err)
+    }
+})
+
+
+router.get('/u/:username', async (req, res) => {
+    const {username} = req.params;
+    try {
+        const user = await userDb.findByUsername(username)
+        const user_id = user.id
+        user.hackathons = await userHackathonDb.findHackathonByUserId(user_id)
+        res.status(200).json(user)
+    } catch(err) {
+        console.log(err)
+    }
+})
+
+// router.get('/:email', async (req, res) => {
+//     const {email} = req.params;
+//     try {
+//         const user = await userDb.findByEmail(email)
+//         user.hackathons = 
+//     } catch(err) {
+//         console.log(err)
+//     }
+// })
 
 module.exports = router;

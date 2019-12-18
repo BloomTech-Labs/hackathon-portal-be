@@ -9,6 +9,7 @@ exports.up = function(knex) {
       .unique()
       tbl.string('password')
       .notNullable()
+      tbl.boolean('email_Verified')
   })
 };
 
@@ -16,3 +17,4 @@ exports.down = function(knex) {
   return knex.schema
   .dropTableIfExists('users')
 };
+ 
