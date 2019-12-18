@@ -25,8 +25,14 @@ var jwtCheck = jwt({
  algorithms: ['RS256']
 });
 
-server.get('/', jwtCheck, (req, res) => {
+server.get('/',  (req, res) => {
    res.send('Server is running!');
 });
+
+app.get("/api/external", checkJwt, (req, res) => {
+   res.send({
+     msg: "Your Access Token was successfully validated!"
+   });
+ });
 
 module.exports = server;
