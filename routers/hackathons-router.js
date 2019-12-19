@@ -9,20 +9,20 @@ router.get('/', async (req, res) => {
         const hackathons = await hackathonDb.find()
         res.status(200).json(hackathons)
     } catch (err) {
-        console.log(err)
+        res.status(500).json({ error: 'Could not get hackathons' })
     }
-})
+});
 
 // get list of specific hackathon - members and admins
 router.get('/:id', async (req, res) => {
     const { id } = req.params;
     try {
         const hackathon = await hackathonDb.findById(id)
-        if (hackathon) { // if hackathon exists
+        if (hackathon !== -1) { // if hackathon exists
             const hackathon_teams = await userHackathon.findHackathonTeams(id)
             const teams = [];
             const map = new Map();
-            for (const item of hackathon_teams) {
+            for (const item of hackathon_teams) { // remove duplicate instances
                 if (!map.has(item.team_id)) {
                     map.set(item.team_id, true);    // set any value to Map
                     teams.push({
@@ -31,13 +31,14 @@ router.get('/:id', async (req, res) => {
                     });
                 }
             }
-            async function mapTeams(arr, cb) {
+            // map through each team and find the users on that team for that hackathon
+            async function mapTeams(arr, cb) { 
                 for (let x = 0; x < arr.length; x++) {
                     arr[x].devs = await cb(arr[x].team_id, id)
                 }
                 return arr
             }
-            hackathon.teams = await mapTeams(teams, userHackathon.findTeamDevsByHackathon)
+            hackathon.teams = await mapTeams(teams, userHackathon.findTeamDevsByHackathon) // call the map function
             hackathon.admins = await userHackathon.findHackathonAdmins(id)
 
             res.status(200).json(hackathon)
@@ -46,9 +47,8 @@ router.get('/:id', async (req, res) => {
         }
     } catch (err) {
         res.status(500).json({ error: 'Could not get hackathon' })
-        console.log(err)
     }
-})
+});
 
 // organizer creates a hackathon
 router.post('/u/:id', async (req, res) => {
@@ -78,11 +78,10 @@ router.put('/:id/u/:org_id', async (req, res) => {
     const changes = req.body;
     try {
         const hack_exists = await hackathonDb.findById(id)
-        console.log(hack_exists)
         if (hack_exists === -1) {
-             res.status(404).json({ error: `Could not find hackathon ${id} to update` })
+            res.status(404).json({ error: `Could not find hackathon ${id} to update` })
         } else if (hack_exists.organizer_id.toString() !== org_id) {
-            res.status(401).json({ error: 'not your hackathon'})
+            res.status(401).json({ error: 'not your hackathon' })
         } else {
             const updated = await hackathonDb.updateHackathon(id, changes)
             res.status(200).json(updated)
@@ -100,11 +99,11 @@ router.delete('/:id/u/:org_id', async (req, res) => {
         const hack_exists = await hackathonDb.findById(id)
         if (hack_exists === -1) {
             res.status(404).json({ error: `Could not find hackathon ${id} to delete` })
-       } else if (hack_exists.organizer_id.toString() !== org_id) {
-            res.status(401).json({ error: 'not your hackathon'})
-    } else {
+        } else if (hack_exists.organizer_id.toString() !== org_id) {
+            res.status(401).json({ error: 'not your hackathon' })
+        } else {
             hackathonDb.remove(id)
-            res.status(200).json({ message: `deleted hackathon with id ${id}`})
+            res.status(200).json({ message: `deleted hackathon with id ${id}` })
         }
     } catch (err) {
         res.status(500).json({ error: 'Could not delete hackathon' })
@@ -114,28 +113,27 @@ router.delete('/:id/u/:org_id', async (req, res) => {
 
 // join a hackathon as a user
 
-router.post('/:id/join/:user_id', async(req, res) => {
+router.post('/:id/join/:user_id', async (req, res) => {
     const { id } = req.params;
     const { user_id } = req.params;
     const body = req.body;
     try {
-       const instance =  {
-        ...body,
-        user_id: user_id,
-        hackathon_id: id,
+        const instance = {
+            ...body,
+            user_id: user_id,
+            hackathon_id: id,
         }
         await userHackathon.insertHackathonInstance(instance)
         const hackathon = await hackathonDb.findById(id)
         const user = await userDb.findById(user_id)
         if (!body.developer_role) {
-            res.status(201).json({ message: `Congrats, you registered  ${user.username} for ${hackathon.name} as a ${body.user_hackathon_role}`})
+            res.status(201).json({ message: `Congrats, you registered  ${user.username} for ${hackathon.name} as a ${body.user_hackathon_role}` })
         } else {
-            res.status(201).json({ message: `Congrats, you registered for ${hackathon.name} as a ${body.user_hackathon_role} doing ${body.developer_role}`})
+            res.status(201).json({ message: `Congrats, you registered for ${hackathon.name} as a ${body.user_hackathon_role} doing ${body.developer_role}` })
         }
-    } catch(err) {
+    } catch (err) {
         res.status(500).json({ error: 'Could not register for hackathon' })
     }
 });
-
 
 module.exports = router;

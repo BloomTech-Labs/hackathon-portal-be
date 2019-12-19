@@ -11,7 +11,7 @@ router.get('/', async (req, res) => {
     } catch (err) {
         console.log(err)
     }
-})
+});
 
 // Get team by id, adding specific hackathon with ?hackathon query
 router.get('/:id', async (req, res) => {
@@ -65,9 +65,8 @@ router.get('/:id', async (req, res) => {
         }
     } catch (err) {
         res.status(500).json(err)
-        console.log(err)
     }
-})
+});
 
 router.put('/:id', async (req, res) => {
     const { id } = req.params;
@@ -78,7 +77,7 @@ router.put('/:id', async (req, res) => {
     } catch (err) {
 
     }
-})
+});
 
 // delete a current team
 router.delete(':/id', async (req, res) => {
@@ -93,6 +92,6 @@ router.delete(':/id', async (req, res) => {
     } catch (err) {
         res.status(500).json(err)
     }
-})
+});
 
 module.exports = router;

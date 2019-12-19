@@ -1,20 +1,21 @@
 
-exports.up = function(knex) {
+exports.up = function (knex) {
   return knex.schema
-  .createTable('users', tbl => {
+    .createTable('users', tbl => {
       tbl.increments()
+      tbl.string('first_name')
+      tbl.string('last_name')
       tbl.varchar('username', 255)
-      .unique()
+        .unique()
       tbl.varchar('email', 255)
-      .unique()
+        .unique()
       tbl.string('password')
-      .notNullable()
+        .notNullable()
       tbl.boolean('email_Verified')
-  })
+    })
 };
 
-exports.down = function(knex) {
+exports.down = function (knex) {
   return knex.schema
-  .dropTableIfExists('users')
+    .dropTableIfExists('users')
 };
- 

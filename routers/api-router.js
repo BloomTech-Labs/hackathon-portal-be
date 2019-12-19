@@ -7,6 +7,5 @@ router.use('/users', userRouter);
 router.use('/hackathons', hackathonRouter);
 router.use('/teams', teamRouter)
 
-
 module.exports = router;
 
