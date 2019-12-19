@@ -12,8 +12,11 @@ exports.seed = function(knex) {
         {username: 'sandy-blakeley', email: "sandy@hackathon-testing.com", password: 'testing'},
         {username: 'bob-evans', email: "bevans@hackathon-testing.com", password: 'testing'},
         {username: 'john-adams', email: "jadams@hackathon-testing.com", password: 'testing'},
-        {username: 'ronald-mcdonald', email: "mickey@hackathon-testing.com", password: 'testing'},
-
+        {username: 'tom-mcdonald', email: "tom@hackathon-testing.com", password: 'testing'},
+        {username: 'bill-mcdonald', email: "bill@hackathon-testing.com", password: 'testing'},
+        {username: 'bob-mcdonald', email: "bob@hackathon-testing.com", password: 'testing'},
+        {username: 'ted-mcdonald', email: "ted@hackathon-testing.com", password: 'testing'},
+        {username: 'sarah-mcdonald', email: "sarah@hackathon-testing.com", password: 'testing'},
       ]);
     });
 };

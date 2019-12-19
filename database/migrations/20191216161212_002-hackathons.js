@@ -12,6 +12,11 @@ exports.up = function(knex) {
       tbl.datetime('end_date')
       .notNullable()
       tbl.boolean('is_open')
+      tbl.integer('organizer_id')
+      .references('id')
+      .inTable('users')
+      .onUpdate('CASCADE')
+      .onDelete('CASCADE')
   })
 };
 

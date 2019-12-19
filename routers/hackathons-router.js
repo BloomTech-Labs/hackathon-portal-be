@@ -1,5 +1,6 @@
 const hackathonDb = require('../models/hackathons-model.js');
 const userHackathon = require('../models/user_hackathons-model.js');
+const userDb = require('../models/users-model');
 const router = require('express').Router();
 
 // get list of all hackathons
@@ -49,45 +50,92 @@ router.get('/:id', async (req, res) => {
     }
 })
 
-// add a hackathon
-router.post('/', async (req, res) => {
+// organizer creates a hackathon
+router.post('/u/:id', async (req, res) => {
     const hackathon = req.body;
+    const { id } = req.params;
+    hackathon.organizer_id = id;
     try {
         const added = await hackathonDb.insert(hackathon)
+        const new_hackathon = await hackathonDb.findById(added.id)
+        const hackathon_id = new_hackathon.id
+        const new_instance = {
+            user_id: id,
+            hackathon_id: hackathon_id,
+            user_hackathon_role: 'organizer',
+        }
+        userHackathon.insertHackathonInstance(new_instance)
         res.status(200).json(added)
-
     } catch (err) {
         res.status(500).json({ err: 'Could not add hackathon' })
     }
 });
 
 // update hackathon information
-router.put('/:id', async (req, res) => {
+router.put('/:id/u/:org_id', async (req, res) => {
     const { id } = req.params;
+    const { org_id } = req.params;
     const changes = req.body;
     try {
-        const updated = await hackathonDb.updateHackathon(id, changes)
-        res.status(200).json(updated)
-
+        const hack_exists = await hackathonDb.findById(id)
+        console.log(hack_exists)
+        if (hack_exists === -1) {
+             res.status(404).json({ error: `Could not find hackathon ${id} to update` })
+        } else if (hack_exists.organizer_id.toString() !== org_id) {
+            res.status(401).json({ error: 'not your hackathon'})
+        } else {
+            const updated = await hackathonDb.updateHackathon(id, changes)
+            res.status(200).json(updated)
+        }
     } catch (err) {
-        res.status(500).json({ err: 'Could not add hackathon' })
+        res.status(500).json({ error: 'Could not update hackathon' })
     }
 });
 
-// delete a current hackathon
-router.delete('/:id', async (req, res) => {
+// organizer can delete a current hackathon
+router.delete('/:id/u/:org_id', async (req, res) => {
     const { id } = req.params;
+    const { org_id } = req.params;
     try {
-        const deleted = await hackathonDb.remove(id)
-        if (deleted !== 0) {
-            res.status(200).json({ message: `Deleted hackathon id ${id}` })
-        } else {
+        const hack_exists = await hackathonDb.findById(id)
+        if (hack_exists === -1) {
             res.status(404).json({ error: `Could not find hackathon ${id} to delete` })
+       } else if (hack_exists.organizer_id.toString() !== org_id) {
+            res.status(401).json({ error: 'not your hackathon'})
+    } else {
+            hackathonDb.remove(id)
+            res.status(200).json({ message: `deleted hackathon with id ${id}`})
         }
     } catch (err) {
-        res.status(500).json(err)
+        res.status(500).json({ error: 'Could not delete hackathon' })
     }
-})
+});
+
+
+// join a hackathon as a user
+
+router.post('/:id/join/:user_id', async(req, res) => {
+    const { id } = req.params;
+    const { user_id } = req.params;
+    const body = req.body;
+    try {
+       const instance =  {
+        ...body,
+        user_id: user_id,
+        hackathon_id: id,
+        }
+        await userHackathon.insertHackathonInstance(instance)
+        const hackathon = await hackathonDb.findById(id)
+        const user = await userDb.findById(user_id)
+        if (!body.developer_role) {
+            res.status(201).json({ message: `Congrats, you registered  ${user.username} for ${hackathon.name} as a ${body.user_hackathon_role}`})
+        } else {
+            res.status(201).json({ message: `Congrats, you registered for ${hackathon.name} as a ${body.user_hackathon_role} doing ${body.developer_role}`})
+        }
+    } catch(err) {
+        res.status(500).json({ error: 'Could not register for hackathon' })
+    }
+});
 
 
 module.exports = router;
