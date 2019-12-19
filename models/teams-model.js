@@ -36,6 +36,9 @@ async function remove(id) {
 async function update(id, changes) {
     return db('teams')
         .where({ id })
-        .update(changes);
+        .update(changes)
+        .then(u => {
+            return findById(id)
+        })
 }
 

@@ -128,60 +128,57 @@
 
 > GET /hackathons/:id
 
-## Returns specific hackathon information, including team and admin values. Does NOT include individual participants.
+### Returns specific hackathon information, including team and admin values.
 
 ```
 {
-  "id": 2,
-  "name": "Bill's Hackathon",
+  "id": 8,
+  "name": "Lorenzo's Hackathon",
   "description": "It's a great hackin' time",
-  "url": "https://www.billshackathon.com",
-  "start_date": "02/09/2019",
-  "end_date": "02/15/2019",
-  "is_open": 0,
-  "organizer_id": 10,
+  "url": "https://www.lorenzo-hackathon.com",
+  "start_date": "02/03/2019",
+  "end_date": "02/12/2019",
+  "is_open": 1,
+  "organizer_id": 1,
   "teams": [
     {
-      "team_id": 1,
-      "team_name": "Team Pepe",
+      "team_id": 2,
+      "team_name": "Fruit Flies & Stuff",
       "devs": [
         {
-          "user_id": 1,
-          "username": "lorenzo-simpson",
-          "developer_role": "front-end"
-        },
-        {
-          "user_id": 2,
-          "username": "austin-powell",
+          "user_id": 4,
+          "username": "joe-schmoe",
           "developer_role": "back-end"
-        },
-        {
-          "user_id": 7,
-          "username": "bob-evans",
-          "developer_role": "DS"
         }
       ]
     }
   ],
   "admins": [
     {
+      "username": "lorenzo-simpson",
+      "user_id": 1,
+      "user_hackathon_role": "organizer"
+    }
+  ],
+  "individual_devs": [
+    {
+      "user_id": 3,
       "username": "alec-blakeley",
-      "user_hackathon_role": "organizer"
+      "user_hackathon_role": "participant",
+      "developer_role": "front-end"
     },
     {
-      "username": "joe-schmoe",
-      "user_hackathon_role": "judge"
-    },
-    {
-      "username": "john-adams",
-      "user_hackathon_role": "organizer"
+      "user_id": 2,
+      "username": "austin-powell",
+      "user_hackathon_role": "participant",
+      "developer_role": "back-end"
     }
   ]
 }
 ```
 > POST /hackathons/u/:id
 
-## Allows organizer to create new hackathon :id being organizer id (who is currently signed in and creating the hackathon)
+### Allows organizer to create new hackathon :id being organizer id (who is currently signed in and creating the hackathon)
 
 ```
 {
@@ -196,13 +193,13 @@
 
 > POST /hackathons/:id/u/:user_id
     
-### Creates an instance linking a user to a hackathon (aka register for a hackathon)
+#### Creates an instance linking a user to a hackathon (aka register for a hackathon)
 ```
     id = existing hackathon id
     user_id = The id of the person signing up
 ```
 
-## Four users scenarios:
+### Four users scenarios:
     1. User registers themself up for a hackathon with a team_id
     2. User registers themself for a hackathon without a team_id
     3. Organizer assigns a judge to a hackathon
@@ -253,7 +250,7 @@
 
 > PUT /hackathons/:id/u/:org_id
 
-## Allows organizer to update the hackathon. Returns the updated hackathon details.
+### Allows organizer to update the hackathon. Returns the updated hackathon details.
 
     id = hackathon_id
     org_id = organizer updating the hackathon (must be original hackathon creator)
@@ -271,7 +268,7 @@
 
 > DELETE /hackathons/:id/u/:org_id
 
-## Deletes a hackathon. Returns a success message.
+### Deletes a hackathon. Returns a success message.
 
     id = hackathon_id
     org_id = organizer updating the hackathon (must be original hackathon creator)
@@ -289,32 +286,113 @@
 
 > GET /teams/
 
-##
+### Returns an array of all teams.
 
 ```
-
+[
+  {
+    "id": 1,
+    "name": "Team Pepe"
+  },
+  {
+    "id": 2,
+    "name": "Fruit Flies & Stuff"
+  },
+  {
+    "id": 3,
+    "name": "Clean Water"
+  },
+  {
+    "id": 4,
+    "name": "Quesadilla Finder"
+  }
+]
 ```
 
 > GET /teams/:id
 
-##
+### Returns a team object with its participants. 
 
 ```
+{
+  "id": 1,
+  "name": "Team Pepe",
+  "participants": [
+    {
+      "user_id": 1,
+      "username": "lorenzo-simpson"
+    },
+    {
+      "user_id": 2,
+      "username": "austin-powell"
+    },
+    {
+      "user_id": 7,
+      "username": "bob-evans"
+    },
+    {
+      "user_id": 3,
+      "username": "alec-blakeley"
+    }
+  ]
+}
+```
 
+### Optional query parameter: ?hackathon=hackathon_id returns the team as it appeared in that hackathon.
+    eg. /teams/1/?hackathon=3
+
+```
+{
+  "id": 1,
+  "name": "Team Pepe",
+  "participants": [
+    {
+      "user_id": 1,
+      "username": "lorenzo-simpson",
+      "user_hackathon_role": "participant",
+      "developer_role": "front-end"
+    },
+    {
+      "user_id": 2,
+      "username": "austin-powell",
+      "user_hackathon_role": "participant",
+      "developer_role": "back-end"
+    }
+  ]
+}
 ```
 
 > PUT /teams/:id
 
-##
+### Updates a team's name. Returns the updated team.
 
 ```
+{
+  "id": 2,
+  "name": "Fruit Flies n' Stuff"
+}
+```
 
+> POST /teams/
+
+### Creates a new team, returns success message and team information.
+
+```
+{
+  "message": "Team was successfully created",
+  "data": {
+    "id": 6,
+    "name": "Lorenzo's Team"
+  }
+}
 ```
 
 > DELETE /teams/:id
 
-##
+##  Deletes a team
 
 ```
-
+{
+   "message": 'Deleted team with id 4' 
+}
 ```

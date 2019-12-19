@@ -7,6 +7,7 @@ module.exports = {
     findTeamDevsByHackathon,
     insertHackathonInstance,
     findHackathonByUserId,
+    findIndividualDevelopers,
 }
 
 async function findTeamUsers(team_id, hackathon_id) {
@@ -30,7 +31,7 @@ async function findTeamUsersNoH(team_id) {
 }
 
 async function findHackathonAdmins(hackathon_id) {
-    return db('user_hackathons').select('users.username', 'user_hackathon_role')
+    return db('user_hackathons').select('users.username', 'users.id as user_id', 'user_hackathon_role')
         .join('users', 'user_id', 'users.id')
         .whereNull('developer_role').andWhere({ hackathon_id })
 }
@@ -54,4 +55,12 @@ async function findHackathonByUserId(user_id) {
         .join('users', 'user_id', 'users.id')
         .leftJoin('teams', 'team_id', 'teams.id')
         .where({ user_id })
+}
+
+async function findIndividualDevelopers(hackathon_id) {
+    return db('user_hackathons').select('users.id as user_id', 'users.username', 'user_hackathon_role', 'developer_role')
+    .join('users', 'user_id', 'users.id')
+    .whereNull('team_id')
+    .andWhere('user_hackathon_role', 'participant')
+    .where({ hackathon_id })
 }

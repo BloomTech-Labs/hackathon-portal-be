@@ -40,6 +40,7 @@ router.get('/:id', async (req, res) => {
             }
             hackathon.teams = await mapTeams(teams, userHackathon.findTeamDevsByHackathon) // call the map function
             hackathon.admins = await userHackathon.findHackathonAdmins(id)
+            hackathon.individual_devs = await userHackathon.findIndividualDevelopers(id)
 
             res.status(200).json(hackathon)
         } else {
