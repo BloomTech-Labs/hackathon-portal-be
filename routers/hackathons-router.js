@@ -112,7 +112,6 @@ router.delete('/:id/u/:org_id', async (req, res) => {
 
 
 // join a hackathon as a user
-
 router.post('/:id/join/:user_id', async (req, res) => {
     const { id } = req.params;
     const { user_id } = req.params;
