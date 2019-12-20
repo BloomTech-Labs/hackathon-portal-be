@@ -8,6 +8,8 @@ module.exports = {
     update
 };
 
+
+
 async function find() {
     return await db('teams')
 }
@@ -36,6 +38,9 @@ async function remove(id) {
 async function update(id, changes) {
     return db('teams')
         .where({ id })
-        .update(changes);
+        .update(changes)
+        .then(u => {
+            return findById(id)
+        })
 }
 

@@ -11,7 +11,7 @@ router.get('/', async (req, res) => {
     } catch (err) {
         console.log(err)
     }
-})
+});
 
 // Get team by id, adding specific hackathon with ?hackathon query
 router.get('/:id', async (req, res) => {
@@ -65,10 +65,10 @@ router.get('/:id', async (req, res) => {
         }
     } catch (err) {
         res.status(500).json(err)
-        console.log(err)
     }
-})
+});
 
+// Update current team information
 router.put('/:id', async (req, res) => {
     const { id } = req.params;
     const changes = req.body;
@@ -76,12 +76,24 @@ router.put('/:id', async (req, res) => {
         const updated = await teamDb.update(id, changes)
         res.status(200).json(updated)
     } catch (err) {
-
+        res.status(500).json(err)
     }
-})
+});
+
+// Create team to be utilized
+router.post('/', async (req, res) => {
+    const team_data = req.body;
+
+    try {
+        const created = await teamDb.add(team_data)
+        res.status(201).json({ message: 'Team was successfully created', data: created })
+    } catch (err) {
+        res.status(500).json(err)
+    }
+});
 
 // delete a current team
-router.delete(':/id', async (req, res) => {
+router.delete('/:id', async (req, res) => {
     const { id } = req.params;
     try {
         const deleted = await teamDb.remove(id)
@@ -93,6 +105,6 @@ router.delete(':/id', async (req, res) => {
     } catch (err) {
         res.status(500).json(err)
     }
-})
+});
 
 module.exports = router;
