@@ -52,6 +52,31 @@
     }
    ```
 
+  > GET /users/e/:email
+
+### Returns a user object by email
+
+   ``` 
+   {
+  "id": 3,
+  "first_name": "Alec",
+  "last_name": "Blakeley",
+  "username": "alec-blakeley",
+  "email": "ablak@hackathon-testing.com",
+  "hackathons": [
+      {
+      "hackathon_name": "Tom's Hackathon",
+      "username": "alec-blakeley",
+      "user_hackathon_role": "organizer",
+      "developer_role": null,
+      "team_id": null,
+      "team_name": null,
+      "user_id": 3
+      }
+     ]
+    }
+   ```
+
 > GET /users/u/:username
 
 ### Returns a user object by username

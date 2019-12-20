@@ -8,6 +8,8 @@ module.exports = {
     update
 };
 
+
+
 async function find() {
     return await db('teams')
 }

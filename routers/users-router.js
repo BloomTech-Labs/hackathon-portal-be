@@ -34,6 +34,18 @@ router.get('/u/:username', async (req, res) => {
     }
 });
 
+router.get('/e/:email', async (req, res) => {
+    const { email } = req.params;
+    try {
+        const user = await userDb.findByEmail(email)
+        const user_id = user.id
+        user.hackathons = await userHackathonDb.findHackathonByUserId(user_id)
+        res.status(200).json(user)
+    } catch (err) {
+        res.status(500).json(err)
+    }
+});
+
 router.put('/:id', async (req, res) => {
     const { id } = req.params;
     const changes = req.body
