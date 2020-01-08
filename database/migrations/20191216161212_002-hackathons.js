@@ -4,6 +4,7 @@ exports.up = function(knex) {
       tbl.string('name', 255).notNullable();
       tbl.string('description', 500);
       tbl.string('url');
+      tbl.string('location');
       tbl.string('start_date').notNullable();
       tbl.string('end_date').notNullable();
       tbl.boolean('is_open');
