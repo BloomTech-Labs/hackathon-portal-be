@@ -9,6 +9,7 @@ exports.seed = function(knex) {
                name: "Tom's Hackathon",
                description: "It's a great hackin' time",
                url: 'https://www.tomshackathon.com',
+               location: 'Denver, CO',
                start_date:
                   'Sat Jan 18 2020 14:37:00 GMT-0500 (Eastern Standard Time)',
                end_date:
@@ -20,6 +21,7 @@ exports.seed = function(knex) {
                name: "Bill's Hackathon",
                description: "It's a great hackin' time",
                url: 'https://www.billshackathon.com',
+               location: 'Chicago, IL',
                start_date:
                   'Sun Jan 19 2020 14:37:00 GMT-0500 (Eastern Standard Time)',
                end_date:
@@ -31,6 +33,7 @@ exports.seed = function(knex) {
                name: "Bob's Hackathon",
                description: "It's a great hackin' time",
                url: 'https://www.bobsshackathon.com',
+               location: 'Austin, TX',
                start_date:
                   'Mon Jan 20 2020 14:37:00 GMT-0500 (Eastern Standard Time)',
                end_date:
@@ -42,10 +45,11 @@ exports.seed = function(knex) {
                name: "Ted's Hackathon",
                description: "It's a great hackin' time",
                url: 'https://www.tedshackathon.com',
+               location: 'Raleigh, NC',
                start_date:
-                  'Tues Jan 21 2020 14:37:00 GMT-0500 (Eastern Standard Time)',
+                  'Sun Dec 1 2019 14:37:00 GMT-0500 (Eastern Standard Time)',
                end_date:
-                  'Sat Jan 25 2020 14:37:00 GMT-0500 (Eastern Standard Time)',
+                  'Tues Dec 3 2019 14:37:00 GMT-0500 (Eastern Standard Time)',
                is_open: true,
                organizer_id: 12
             },
@@ -53,10 +57,11 @@ exports.seed = function(knex) {
                name: "Sarah's Hackathon",
                description: "It's a great hackin' time",
                url: 'https://www.sarahshackathon.com',
+               location: 'Remote',
                start_date:
-                  'Wed Jan 22 2020 14:37:00 GMT-0500 (Eastern Standard Time)',
+                  'Tues Oct 1 2019 14:37:00 GMT-0500 (Eastern Standard Time)',
                end_date:
-                  'Sun Jan 26 2020 14:37:00 GMT-0500 (Eastern Standard Time)',
+                  'Sat Oct 5 2019 14:37:00 GMT-0500 (Eastern Standard Time)',
                is_open: true,
                organizer_id: 13
             }

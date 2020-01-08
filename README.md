@@ -37,23 +37,25 @@
 
 ```
 {
-"id": 1,
-"username": "lorenzo-simpson",
-"email": "lsimp@hackathon-testing.com",
-"hackathons": [
- {
-   "hackathon_name": "Tom's Hackathon",
-   "username": "lorenzo-simpson",
-   "user_hackathon_role": "participant",
-   "developer_role": "front-end",
-   "team_id": 1,
-   "team_name": "Team Pepe",
-   "user_id": 1,
-   "hackathon_id": 1,
-   "start_date": "02/09/2019",
-   "end_date": "02/13/2019",
-   "hackathon_description": "It's a great hackin' time"
- }
+  "id": 1,
+  "first_name": "Lorenzo",
+  "last_name": "Simpson",
+  "username": "lorenzo-simpson",
+  "email": "lsimp@hackathon-testing.com",
+  "hackathons": [
+    {
+      "hackathon_name": "Tom's Hackathon",
+      "username": "lorenzo-simpson",
+      "user_hackathon_role": "participant",
+      "developer_role": "front-end",
+      "team_id": 1,
+      "team_name": "Team Pepe",
+      "user_id": 1,
+      "hackathon_id": 1,
+      "start_date": "Sat Jan 18 2020 14:37:00 GMT-0500 (Eastern Standard Time)",
+      "end_date": "Wed Jan 22 2020 14:37:00 GMT-0500 (Eastern Standard Time)",
+      "hackathon_description": "It's a great hackin' time"
+    }
 }
 ```
 
@@ -63,23 +65,25 @@
 
 ```
 {
-"id": 1,
-"username": "lorenzo-simpson",
-"email": "lsimp@hackathon-testing.com",
-"hackathons": [
- {
-   "hackathon_name": "Tom's Hackathon",
-   "username": "lorenzo-simpson",
-   "user_hackathon_role": "participant",
-   "developer_role": "front-end",
-   "team_id": 1,
-   "team_name": "Team Pepe",
-   "user_id": 1,
-   "hackathon_id": 1,
-   "start_date": "02/09/2019",
-   "end_date": "02/13/2019",
-   "hackathon_description": "It's a great hackin' time"
- }
+  "id": 1,
+  "first_name": "Lorenzo",
+  "last_name": "Simpson",
+  "username": "lorenzo-simpson",
+  "email": "lsimp@hackathon-testing.com",
+  "hackathons": [
+    {
+      "hackathon_name": "Tom's Hackathon",
+      "username": "lorenzo-simpson",
+      "user_hackathon_role": "participant",
+      "developer_role": "front-end",
+      "team_id": 1,
+      "team_name": "Team Pepe",
+      "user_id": 1,
+      "hackathon_id": 1,
+      "start_date": "Sat Jan 18 2020 14:37:00 GMT-0500 (Eastern Standard Time)",
+      "end_date": "Wed Jan 22 2020 14:37:00 GMT-0500 (Eastern Standard Time)",
+      "hackathon_description": "It's a great hackin' time"
+    }
 }
 ```
 
@@ -89,23 +93,25 @@
 
 ```
 {
-"id": 1,
-"username": "lorenzo-simpson",
-"email": "lsimp@hackathon-testing.com",
-"hackathons": [
- {
-   "hackathon_name": "Tom's Hackathon",
-   "username": "lorenzo-simpson",
-   "user_hackathon_role": "participant",
-   "developer_role": "front-end",
-   "team_id": 1,
-   "team_name": "Team Pepe",
-   "user_id": 1,
-   "hackathon_id": 1,
-   "start_date": "02/09/2019",
-   "end_date": "02/13/2019",
-   "hackathon_description": "It's a great hackin' time"
- }
+  "id": 1,
+  "first_name": "Lorenzo",
+  "last_name": "Simpson",
+  "username": "lorenzo-simpson",
+  "email": "lsimp@hackathon-testing.com",
+  "hackathons": [
+    {
+      "hackathon_name": "Tom's Hackathon",
+      "username": "lorenzo-simpson",
+      "user_hackathon_role": "participant",
+      "developer_role": "front-end",
+      "team_id": 1,
+      "team_name": "Team Pepe",
+      "user_id": 1,
+      "hackathon_id": 1,
+      "start_date": "Sat Jan 18 2020 14:37:00 GMT-0500 (Eastern Standard Time)",
+      "end_date": "Wed Jan 22 2020 14:37:00 GMT-0500 (Eastern Standard Time)",
+      "hackathon_description": "It's a great hackin' time"
+    }
 }
 ```
 
@@ -125,6 +131,16 @@
 
 ```
 
+> DELETE /users/:id
+
+### Deletes the user account
+
+```
+{
+  "message": "Deleted user with id 10 successfully"
+}
+```
+
 ---
 
 ## Hackathons
@@ -140,8 +156,9 @@
     "name": "Tom's Hackathon",
     "description": "It's a great hackin' time",
     "url": "https://www.tomshackathon.com",
-    "start_date": "02/09/2019",
-    "end_date": "02/13/2019",
+    "location": "Denver, CO",
+    "start_date": "Sat Jan 18 2020 14:37:00 GMT-0500 (Eastern Standard Time)",
+    "end_date": "Wed Jan 22 2020 14:37:00 GMT-0500 (Eastern Standard Time)",
     "is_open": 1,
     "organizer_id": 9
   },
@@ -150,8 +167,9 @@
     "name": "Bill's Hackathon",
     "description": "It's a great hackin' time",
     "url": "https://www.billshackathon.com",
-    "start_date": "02/09/2019",
-    "end_date": "02/15/2019",
+    "location": "Chicago, IL",
+    "start_date": "Sun Jan 19 2020 14:37:00 GMT-0500 (Eastern Standard Time)",
+    "end_date": "Thurs Jan 23 2020 14:37:00 GMT-0500 (Eastern Standard Time)",
     "is_open": 0,
     "organizer_id": 10
   }
@@ -164,48 +182,83 @@
 
 ```
 {
-  "id": 8,
-  "name": "Lorenzo's Hackathon",
+  "id": 1,
+  "name": "Tom's Hackathon",
   "description": "It's a great hackin' time",
-  "url": "https://www.lorenzo-hackathon.com",
-  "start_date": "02/03/2019",
-  "end_date": "02/12/2019",
+  "url": "https://www.tomshackathon.com",
+  "location": "Denver, CO",
+  "start_date": "Sat Jan 18 2020 14:37:00 GMT-0500 (Eastern Standard Time)",
+  "end_date": "Wed Jan 22 2020 14:37:00 GMT-0500 (Eastern Standard Time)",
   "is_open": 1,
-  "organizer_id": 1,
+  "organizer_id": 9,
   "teams": [
+    {
+      "team_id": 1,
+      "team_name": "Team Pepe",
+      "devs": [
+        {
+          "user_id": 1,
+          "username": "lorenzo-simpson",
+          "developer_role": "front-end"
+        },
+        {
+          "user_id": 2,
+          "username": "austin-powell",
+          "developer_role": "back-end"
+        }
+      ]
+    },
     {
       "team_id": 2,
       "team_name": "Fruit Flies & Stuff",
       "devs": [
         {
-          "user_id": 4,
-          "username": "joe-schmoe",
-          "developer_role": "back-end"
+          "user_id": 5,
+          "username": "santa-clause",
+          "developer_role": "UX"
+        },
+        {
+          "user_id": 6,
+          "username": "sandy-blakeley",
+          "developer_role": "DS"
+        }
+      ]
+    },
+    {
+      "team_id": 3,
+      "team_name": "Clean Water",
+      "devs": [
+        {
+          "user_id": 7,
+          "username": "bob-evans",
+          "developer_role": "DS"
         }
       ]
     }
   ],
   "admins": [
     {
-      "username": "lorenzo-simpson",
-      "user_id": 1,
-      "user_hackathon_role": "organizer"
-    }
-  ],
-  "individual_devs": [
-    {
-      "user_id": 3,
       "username": "alec-blakeley",
-      "user_hackathon_role": "participant",
-      "developer_role": "front-end"
+      "user_id": 3,
+      "user_hackathon_role": "organizer"
     },
     {
-      "user_id": 2,
-      "username": "austin-powell",
-      "user_hackathon_role": "participant",
-      "developer_role": "back-end"
+      "username": "joe-schmoe",
+      "user_id": 4,
+      "user_hackathon_role": "judge"
+    },
+    {
+      "username": "john-adams",
+      "user_id": 8,
+      "user_hackathon_role": "judge"
+    },
+    {
+      "username": "tom-mcdonald",
+      "user_id": 9,
+      "user_hackathon_role": "judge"
     }
-  ]
+  ],
+  "individual_devs": []
 }
 ```
 
@@ -218,8 +271,8 @@
   "name": "Lorenzo's Hackathon",
   "description": "It's a great hackin' time",
   "url": "https://www.lorenzos-hackathon.com",
-  "start_date": "02/03/2019",
-  "end_date": "02/12/2019",
+  "start_date": "Sat Jan 18 2020 14:37:00 GMT-0500 (Eastern Standard Time)",
+  "end_date": "Wed Jan 22 2020 14:37:00 GMT-0500 (Eastern Standard Time)",
   "is_open": 1
 }
 ```
@@ -297,8 +350,8 @@
   "name": "Alec's First Hackathon",
   "description": "It's a great hackin' time",
   "url": "https://www.alec-other-hackathon.com",
-  "start_date": "02/03/2019",
-  "end_date": "02/12/2019",
+  "start_date": "Sat Jan 18 2020 14:37:00 GMT-0500 (Eastern Standard Time)",
+  "end_date": "Wed Jan 22 2020 14:37:00 GMT-0500 (Eastern Standard Time)",
   "is_open": 1
 }
 ```
