@@ -24,6 +24,7 @@ describe('/hackathons endpoints', () => {
             name: 'Testing Hackathon',
             description: "It's a great hackin' time",
             url: 'https://www.testing-hackathon.com',
+            location: 'Remote',
             start_date:
                'Mon Jan 20 2020 14:37:00 GMT-0500 (Eastern Standard Time)',
             end_date:
