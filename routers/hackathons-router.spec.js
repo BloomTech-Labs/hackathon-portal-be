@@ -65,4 +65,10 @@ describe('/hackathons endpoints', () => {
             is_open: 1
          });
    });
+   it('Should return a 200 success for deleting a hackathon', async () => {
+      await request(server)
+         .delete('/api/hackathons/1/u/1')
+         .set('Authorization', token)
+         .expect(200);
+   });
 });
