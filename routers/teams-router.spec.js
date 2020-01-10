@@ -42,4 +42,10 @@ describe('/hackathons endpoints', () => {
          .set('Authorization', token)
          .expect(200);
    });
+   it('Should return a 200 success for deleting a team', async () => {
+      await request(server)
+         .delete('/api/teams/1')
+         .set('Authorization', token)
+         .expect(200);
+   });
 });
