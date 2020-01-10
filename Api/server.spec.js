@@ -18,4 +18,11 @@ describe('GET /', () => {
          .set('Authorization', token)
          .expect(200);
    });
+
+   it('Should return Unauthorized(401), without validation', async () => {
+      await request(server)
+         .get('/api/external')
+         .set('Authorization', '')
+         .expect(401);
+   });
 });
