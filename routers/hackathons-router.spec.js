@@ -5,6 +5,7 @@ const db = require('../database/db');
 describe('/hackathons endpoints', () => {
    beforeAll(async () => {
       await db('hackathons').truncate();
+      await db('user_hackathons').truncate();
    });
 
    let token =
@@ -15,7 +16,7 @@ describe('/hackathons endpoints', () => {
          .set('Authorization', token)
          .expect(200);
    });
-   it('Should return 200 success for creating hackathon', async () => {
+   it('Should return 201 success for creating hackathon', async () => {
       await request(server)
          .post('/api/hackathons/u/1')
          .set('Authorization', token)
@@ -32,10 +33,36 @@ describe('/hackathons endpoints', () => {
          })
          .expect(201);
    });
+   it('Should return 201 success for joining a hackathon', async () => {
+      await request(server)
+         .post('/api/hackathons/1/join/1')
+         .set('Authorization', token)
+         .send({
+            user_hackathon_role: 'participant',
+            developer_role: 'front-end',
+            team_id: 1
+         })
+         .expect(201);
+   });
    it('Should return 200 success for specific hackathon', async () => {
       await request(server)
          .get('/api/hackathons/1')
          .set('Authorization', token)
          .expect(200);
+   });
+   it('Should return a 200 success for updating hackathon', async () => {
+      await request(server)
+         .put('/api/hackathons/1/u/1')
+         .set('Authorization', token)
+         .send({
+            name: 'Updated Hackathon',
+            description: "It's a great hackin' time",
+            url: 'https://www.updated-hackathon.com',
+            start_date:
+               'Sat Jan 18 2020 14:37:00 GMT-0500 (Eastern Standard Time)',
+            end_date:
+               'Wed Jan 22 2020 14:37:00 GMT-0500 (Eastern Standard Time)',
+            is_open: 1
+         });
    });
 });

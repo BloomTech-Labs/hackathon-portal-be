@@ -94,7 +94,7 @@ router.put('/:id/u/:org_id', async (req, res) => {
          res.status(401).json({ error: 'not your hackathon' });
       } else {
          const updated = await hackathonDb.updateHackathon(id, changes);
-         res.status(201).json(updated);
+         res.status(200).json(updated);
       }
    } catch (err) {
       res.status(500).json({ error: 'Could not update hackathon' });
