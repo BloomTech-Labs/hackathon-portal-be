@@ -271,6 +271,7 @@
   "name": "Lorenzo's Hackathon",
   "description": "It's a great hackin' time",
   "url": "https://www.lorenzos-hackathon.com",
+  "location": "Denver, CO"
   "start_date": "Sat Jan 18 2020 14:37:00 GMT-0500 (Eastern Standard Time)",
   "end_date": "Wed Jan 22 2020 14:37:00 GMT-0500 (Eastern Standard Time)",
   "is_open": 1
