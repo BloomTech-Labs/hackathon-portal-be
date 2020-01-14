@@ -2,6 +2,7 @@ const hackathonDb = require('../models/hackathons-model.js');
 const userHackathon = require('../models/user_hackathons-model.js');
 const userDb = require('../models/users-model');
 const router = require('express').Router();
+const { validateHackathon } = require('./hackathon-helpers');
 
 // get list of all hackathons
 router.get('/', async (req, res) => {
@@ -62,8 +63,10 @@ router.get('/:id', async (req, res) => {
 router.post('/u/:id', async (req, res) => {
    const hackathon = req.body;
    const { id } = req.params;
+   const validateCreation = validateHackathon(hackathon);
    hackathon.organizer_id = id;
-   try {
+
+   if (validateCreation.isSuccessful === true) {
       const added = await hackathonDb.insert(hackathon);
       const new_hackathon = await hackathonDb.findById(added.id);
       const hackathon_id = new_hackathon.id;
@@ -74,8 +77,11 @@ router.post('/u/:id', async (req, res) => {
       };
       userHackathon.insertHackathonInstance(new_instance);
       res.status(201).json(added);
-   } catch (err) {
-      res.status(500).json({ err: 'Could not add hackathon' });
+   } else {
+      res.status(500).json({
+         message: 'Could not add hackathon',
+         errors: validateCreation.errors
+      });
    }
 });
 
