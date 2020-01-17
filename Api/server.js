@@ -23,7 +23,7 @@ var jwtCheck = jwt({
    algorithms: ['RS256']
 });
 
-server.use('/api', jwtCheck, apiRouter)
+server.use('/api', apiRouter)
 
 server.get('/', (req, res) => {
    res.send('Server is running!');
