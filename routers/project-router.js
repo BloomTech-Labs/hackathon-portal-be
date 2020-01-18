@@ -24,16 +24,12 @@ router.get('/:id', async (req, res) => {
             res.status(404).json({ error: "Project doesn't exist" })
         } else {
             try {
-                const hack_exists = await hackathonDb.findById(hackathon)
-                if (hack_exists === -1) {
-                    res.status(404).json({ error: "That hackathon doesn't exist" })
-                } else {
-                    let participants = await projectDb.findProjectParticipants(id)
-                   
-                      project.participants = participants
+                let participants = await userHackathonDb.findProjectParticipants(id)
+                console.log(participants)
+                    project.participants = participants
 
-                    res.status(200).json(project)
-                }
+                res.status(200).json(project)
+              
             } catch (err) {
                 res.status(500).json(err)
             }

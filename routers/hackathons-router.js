@@ -21,34 +21,36 @@ router.get('/:id', async (req, res) => {
       const hackathon = await hackathonDb.findById(id);
       if (hackathon !== -1) {
          // if hackathon exists
-         const hackathon_teams = await userHackathon.findHackathonTeams(id);
-         const teams = [];
+         const hackathon_projects = await userHackathon.findHackathonProjects(id);
+         console.log(hackathon_projects, 'hackathon projects')
+
+         const projects = [];
          const map = new Map();
-         for (const item of hackathon_teams) {
+         for (const item of hackathon_projects) {
             // remove duplicate instances
-            if (!map.has(item.team_id)) {
-               map.set(item.team_id, true); // set any value to Map
-               teams.push({
-                  team_id: item.team_id,
-                  team_name: item.team_name
+            if (!map.has(item.project_id)) {
+               map.set(item.project_id, true); // set any value to Map
+               projects.push({
+                  project_id: item.project_id,
+                  project_title: item.project_title
                });
             }
          }
-         // map through each team and find the users on that team for that hackathon
+         // map through each team and find the users on that project for that hackathon
          async function mapTeams(arr, cb) {
             for (let x = 0; x < arr.length; x++) {
-               arr[x].devs = await cb(arr[x].team_id, id);
+               arr[x].participants = await cb(arr[x].project_id);
             }
             return arr;
          }
-         hackathon.teams = await mapTeams(
-            teams,
-            userHackathon.findTeamDevsByHackathon
+         hackathon.projects = await mapTeams(
+            hackathon_projects,
+            userHackathon.findProjectParticipants
          ); // call the map function
          hackathon.admins = await userHackathon.findHackathonAdmins(id);
-         hackathon.individual_devs = await userHackathon.findIndividualDevelopers(
-            id
-         );
+         // hackathon.individual_devs = await userHackathon.findIndividualDevelopers(
+         //    id
+         // );
 
          res.status(200).json(hackathon);
       } else {

@@ -2,12 +2,13 @@ const db = require('../database/db.js');
 module.exports = {
    findTeamUsers,
    findTeamUsersNoH,
-   findHackathonTeams,
+   findHackathonProjects,
    findHackathonAdmins,
    findTeamDevsByHackathon,
    insertHackathonInstance,
    findHackathonByUserId,
-   findIndividualDevelopers
+   findIndividualDevelopers,
+   findProjectParticipants
 };
 
 async function findTeamUsers(team_id, hackathon_id) {
@@ -24,10 +25,9 @@ async function findTeamUsers(team_id, hackathon_id) {
       .andWhere({ hackathon_id });
 }
 
-async function findHackathonTeams(hackathon_id) {
-   return db('teams')
-      .select('teams.id as team_id', 'teams.name as team_name')
-      .join('user_hackathons', 'team_id', 'teams.id')
+async function findHackathonProjects(hackathon_id) {
+   return db('projects')
+      .select('projects.id as project_id', 'projects.title as project_title')
       .where({ hackathon_id });
 }
 
@@ -95,4 +95,17 @@ async function findIndividualDevelopers(hackathon_id) {
       .whereNull('team_id')
       .andWhere('user_hackathon_role', 'participant')
       .where({ hackathon_id });
+}
+
+async function findProjectParticipants(project_id) {
+   return db('user_hackathons')
+      .select(
+         'users.id as user_id',
+         'users.username as username',
+         'user_hackathon_role',
+         'user_hackathons.hackathon_id',
+         'developer_role'
+      )
+      .join('users', 'user_id', 'users.id')
+      .where({ project_id })
 }

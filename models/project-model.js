@@ -6,7 +6,6 @@ module.exports = {
     add,
     remove,
     update,
-    findProjectParticipants
 };
 
 
@@ -45,9 +44,5 @@ async function update(id, changes) {
         })
 }
 
-async function findProjectParticipants(id) {
-    return db('projects').select('users.username')
-    .where({ id })
-    .join('users', 'user_id', 'users.id')
-}
+
 
