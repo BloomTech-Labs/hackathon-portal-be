@@ -15,7 +15,7 @@ exports.seed = function (knex) {
           android_spots: 1,
           data_science_spots: 2,
           ux_spots: 1,
-          user_id: 1,
+          creator_id: 1,
           hackathon_id: 1,
         },
         {
@@ -28,7 +28,7 @@ exports.seed = function (knex) {
           android_spots: 1,
           data_science_spots: 2,
           ux_spots: 1,
-          user_id: 5,
+          creator_id: 5,
           hackathon_id: 1,
         },
         {
@@ -40,7 +40,7 @@ exports.seed = function (knex) {
           android_spots: 6,
           data_science_spots: 3,
           ux_spots: 2,
-          user_id: 2,
+          creator_id: 2,
           hackathon_id: 2,
           is_approved: false,
         },
@@ -54,7 +54,7 @@ exports.seed = function (knex) {
           android_spots: 1,
           data_science_spots: 1,
           ux_spots: 1,
-          user_id: 3,
+          creator_id: 3,
           hackathon_id: 3,
         },
       ]);
