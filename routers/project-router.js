@@ -4,13 +4,13 @@ const userHackathonDb = require('../models/user_hackathons-model');
 const hackathonDb = require('../models/hackathons-model');
 
 
-// Get list of all teams
+// Get list of all projects
 router.get('/', async (req, res) => {
     try {
         const projects = await projectDb.find()
         res.status(200).json(projects)
     } catch (err) {
-        console.log(err)
+        res.status(500).json(err)
     }
 });
 
@@ -19,13 +19,11 @@ router.get('/:id', async (req, res) => {
     const { id } = req.params;
     try {
         const project = await projectDb.findById(id)
-        console.log(project)
         if (!project) {
             res.status(404).json({ error: "Project doesn't exist" })
         } else {
             try {
                 let participants = await userHackathonDb.findProjectParticipants(id)
-                console.log(participants)
                     project.participants = participants
 
                 res.status(200).json(project)

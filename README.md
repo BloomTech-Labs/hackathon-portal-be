@@ -44,74 +44,21 @@
   "email": "lsimp@hackathon-testing.com",
   "hackathons": [
     {
+      "hackathon_id": 1,
       "hackathon_name": "Tom's Hackathon",
-      "username": "lorenzo-simpson",
       "user_hackathon_role": "participant",
       "developer_role": "front-end",
-      "team_id": 1,
-      "team_name": "Team Pepe",
-      "user_id": 1,
-      "hackathon_id": 1,
       "start_date": "Sat Jan 18 2020 14:37:00 GMT-0500 (Eastern Standard Time)",
       "end_date": "Wed Jan 22 2020 14:37:00 GMT-0500 (Eastern Standard Time)",
-      "hackathon_description": "It's a great hackin' time"
+      "hackathon_description": "It's a great hackin' time",
+      "project": {
+        "user_id": 1,
+        "project_id": 1,
+        "title": "To-do List",
+        "description": "It's a to-do list"
+      }
     }
-}
-```
-
-> GET /users/e/:email
-
-### Returns a user object by email
-
-```
-{
-  "id": 1,
-  "first_name": "Lorenzo",
-  "last_name": "Simpson",
-  "username": "lorenzo-simpson",
-  "email": "lsimp@hackathon-testing.com",
-  "hackathons": [
-    {
-      "hackathon_name": "Tom's Hackathon",
-      "username": "lorenzo-simpson",
-      "user_hackathon_role": "participant",
-      "developer_role": "front-end",
-      "team_id": 1,
-      "team_name": "Team Pepe",
-      "user_id": 1,
-      "hackathon_id": 1,
-      "start_date": "Sat Jan 18 2020 14:37:00 GMT-0500 (Eastern Standard Time)",
-      "end_date": "Wed Jan 22 2020 14:37:00 GMT-0500 (Eastern Standard Time)",
-      "hackathon_description": "It's a great hackin' time"
-    }
-}
-```
-
-> GET /users/u/:username
-
-### Returns a user object by username
-
-```
-{
-  "id": 1,
-  "first_name": "Lorenzo",
-  "last_name": "Simpson",
-  "username": "lorenzo-simpson",
-  "email": "lsimp@hackathon-testing.com",
-  "hackathons": [
-    {
-      "hackathon_name": "Tom's Hackathon",
-      "username": "lorenzo-simpson",
-      "user_hackathon_role": "participant",
-      "developer_role": "front-end",
-      "team_id": 1,
-      "team_name": "Team Pepe",
-      "user_id": 1,
-      "hackathon_id": 1,
-      "start_date": "Sat Jan 18 2020 14:37:00 GMT-0500 (Eastern Standard Time)",
-      "end_date": "Wed Jan 22 2020 14:37:00 GMT-0500 (Eastern Standard Time)",
-      "hackathon_description": "It's a great hackin' time"
-    }
+  ]
 }
 ```
 
@@ -160,6 +107,7 @@
     "start_date": "Sat Jan 18 2020 14:37:00 GMT-0500 (Eastern Standard Time)",
     "end_date": "Wed Jan 22 2020 14:37:00 GMT-0500 (Eastern Standard Time)",
     "is_open": 1,
+    "max_team_participants": 20,
     "organizer_id": 9
   },
   {
@@ -171,6 +119,7 @@
     "start_date": "Sun Jan 19 2020 14:37:00 GMT-0500 (Eastern Standard Time)",
     "end_date": "Thurs Jan 23 2020 14:37:00 GMT-0500 (Eastern Standard Time)",
     "is_open": 0,
+    "max_team_participants": 20,
     "organizer_id": 10
   }
 ]
@@ -190,52 +139,22 @@
   "start_date": "Sat Jan 18 2020 14:37:00 GMT-0500 (Eastern Standard Time)",
   "end_date": "Wed Jan 22 2020 14:37:00 GMT-0500 (Eastern Standard Time)",
   "is_open": 1,
+  "max_team_participants": 20,
   "organizer_id": 9,
-  "teams": [
+  "projects": [
     {
-      "team_id": 1,
-      "team_name": "Team Pepe",
-      "devs": [
+      "project_id": 1,
+      "project_title": "To-do List",
+      "participants": [
         {
           "user_id": 1,
           "username": "lorenzo-simpson",
+          "user_hackathon_role": "participant",
+          "hackathon_id": 1,
           "developer_role": "front-end"
-        },
-        {
-          "user_id": 2,
-          "username": "austin-powell",
-          "developer_role": "back-end"
         }
       ]
     },
-    {
-      "team_id": 2,
-      "team_name": "Fruit Flies & Stuff",
-      "devs": [
-        {
-          "user_id": 5,
-          "username": "santa-clause",
-          "developer_role": "UX"
-        },
-        {
-          "user_id": 6,
-          "username": "sandy-blakeley",
-          "developer_role": "DS"
-        }
-      ]
-    },
-    {
-      "team_id": 3,
-      "team_name": "Clean Water",
-      "devs": [
-        {
-          "user_id": 7,
-          "username": "bob-evans",
-          "developer_role": "DS"
-        }
-      ]
-    }
-  ],
   "admins": [
     {
       "username": "alec-blakeley",
@@ -257,8 +176,7 @@
       "user_id": 9,
       "user_hackathon_role": "judge"
     }
-  ],
-  "individual_devs": []
+  ]
 }
 ```
 
@@ -276,6 +194,7 @@
   "location": "Denver, CO",
   "start_date": "Sat Jan 18 2020 14:37:00 GMT-0500 (Eastern Standard Time)",
   "end_date": "Wed Jan 22 2020 14:37:00 GMT-0500 (Eastern Standard Time)",
+  "max_team_participants": 4,
   "is_open": 1
 }
 ```
@@ -291,7 +210,7 @@
 }
 ```
 
-> POST /hackathons/:id/u/:user_id
+> POST /hackathons/:id/join/:user_id
 
 #### Creates an instance linking a user to a hackathon (aka register for a hackathon)
 
@@ -300,55 +219,43 @@
     user_id = The id of the person signing up
 ```
 
-### Four users scenarios:
+### Three user scenarios:
 
-    1. User registers themself up for a hackathon with a team_id
-    2. User registers themself for a hackathon without a team_id
-    3. Organizer assigns a judge to a hackathon
-    4. Organizer assigns another organizer to their hackathon
+    1. User registers themself for a hackathon with a project_id (aka JOINS A PROJECT)
+    2. Organizer assigns a judge to a hackathon
+    3. Organizer assigns another organizer to their hackathon
 
 ```
-    Scenario 1: Austin (signed in) registers for a hackathon on a given team
+    Scenario 1: Lorenzo (signed in) registers for a project
 
-    POST /hackathons/{hackathon_id}/join/{austin_user_id}
+    POST /hackathons/{hackathon_id}/join/{lorenzo_user_id}
 
-    {
-	"user_hackathon_role": "participant",
-	"developer_role": "front-end",
-    "team_id": 1
+    { 
+      "project_id": 1,
+	    "user_hackathon_role": "participant",
+	    "developer_role": "front-end"
     }
 
 ```
 
 ```
-    Scenario 2: Austin (signed in) registers for a hackathon as an individual
-
-    POST /hackathons/{hackathon_id}/join/{austin_user_id}
-
-    {
-	"user_hackathon_role": "participant",
-	"developer_role": "front-end"
-    }
-```
-
-```
-    Scenario 3: Lorenzo (signed-in & organizer of hackathon) registers Alec for a hackathon a judge
+    Scenario 2: Lorenzo (signed-in & organizer of hackathon) registers Alec for a hackathon as a judge
 
     POST /hackathons/{hackathon_id}/join/{alec_user_id}
 
     {
-	"user_hackathon_role": "judge",
+	    "user_hackathon_role": "judge"
     }
 
 ```
 
 ```
-    Scenario 4: Lorenzo (signed-in & organizer of hackathon) registers Bob for a hackathon another organizer
+    Scenario 3: Lorenzo (signed-in & organizer of hackathon) registers Alec for a hackathon as another organizer
 
     POST /hackathons/{hackathon_id}/join/{bob_user_id}
 
     {
-	"user_hackathon_role": "organizer",
+	    "user_hackathon_role": "organizer"
     }
 ```
 
@@ -385,118 +292,112 @@
 
 ---
 
-## Teams
+## Projects
 
-> GET /teams/
+> GET /projects/
 
-### Returns an array of all teams.
+### Returns an array of ALL projects.
 
 ```
 [
   {
     "id": 1,
-    "name": "Team Pepe"
+    "title": "To-do List",
+    "description": "It's a to-do list",
+    "is_approved": 1,
+    "creator_id": 1,
+    "hackathon_id": 1,
+    "front_end_spots": 10,
+    "back_end_spots": 3,
+    "ios_spots": 3,
+    "android_spots": 1,
+    "data_science_spots": 2,
+    "ux_spots": 1
   },
   {
     "id": 2,
-    "name": "Fruit Flies & Stuff"
+    "title": "Guidr",
+    "description": "It's an app",
+    "is_approved": 1,
+    "creator_id": 5,
+    "hackathon_id": 1,
+    "front_end_spots": 10,
+    "back_end_spots": 3,
+    "ios_spots": 3,
+    "android_spots": 1,
+    "data_science_spots": 2,
+    "ux_spots": 1
   },
-  {
-    "id": 3,
-    "name": "Clean Water"
-  },
-  {
-    "id": 4,
-    "name": "Quesadilla Finder"
-  }
 ]
 ```
 
-> GET /teams/:id
+> GET /projects/:id
 
-### Returns a team object with its participants.
-
-```
-{
-  "id": 1,
-  "name": "Team Pepe",
-  "participants": [
-    {
-      "user_id": 1,
-      "username": "lorenzo-simpson"
-    },
-    {
-      "user_id": 2,
-      "username": "austin-powell"
-    },
-    {
-      "user_id": 7,
-      "username": "bob-evans"
-    },
-    {
-      "user_id": 3,
-      "username": "alec-blakeley"
-    }
-  ]
-}
-```
-
-### Optional query parameter: ?hackathon=hackathon_id returns the team as it appeared in that hackathon.
-
-    eg. /teams/1/?hackathon=3
-
-```
-{
-  "id": 1,
-  "name": "Team Pepe",
-  "participants": [
-    {
-      "user_id": 1,
-      "username": "lorenzo-simpson",
-      "user_hackathon_role": "participant",
-      "developer_role": "front-end"
-    },
-    {
-      "user_id": 2,
-      "username": "austin-powell",
-      "user_hackathon_role": "participant",
-      "developer_role": "back-end"
-    }
-  ]
-}
-```
-
-> PUT /teams/:id
-
-### Updates a team's name. Returns the updated team.
+### Returns a project object with its participants.
 
 ```
 {
   "id": 2,
-  "name": "Fruit Flies n' Stuff"
+  "title": "Guidr",
+  "description": "It's an app",
+  "is_approved": 1,
+  "creator_id": 5,
+  "hackathon_id": 1,
+  "front_end_spots": 10,
+  "back_end_spots": 3,
+  "ios_spots": 3,
+  "android_spots": 1,
+  "data_science_spots": 2,
+  "ux_spots": 1,
+  "participants": [
+    {
+      "user_id": 2,
+      "username": "austin-powell",
+      "user_hackathon_role": "participant",
+      "hackathon_id": 2,
+      "developer_role": "front-end"
+    }
+  ]
 }
 ```
 
-> POST /teams/
+> PUT /projects/:id
 
-### Creates a new team, returns success message and team information.
+### Updates a project. Returns the updated project.
 
 ```
 {
-  "message": "Team was successfully created",
-  "data": {
-    "id": 6,
-    "name": "Lorenzo's Team"
-  }
+  "id": 2,
+  "title": "Expat Journal"
 }
 ```
 
-> DELETE /teams/:id
+> POST /projects
 
-## Deletes a team
+### Creates a new project, returns success message and project information.
 
 ```
 {
-   "message": 'Deleted team with id 4'
+	"title": "Cat App",
+  "description": "It's a to-do list",
+  "is_approved": true,
+  "front_end_spots": 10,
+  "back_end_spots": 3,
+  "ios_spots": 3,
+  "android_spots": 1,
+  "data_science_spots": 2,
+  "ux_spots": 1,
+  "creator_id": 1,
+  "hackathon_id": 2
+}
+```
+
+> DELETE /projects/:id
+
+## Deletes a project
+
+```
+{
+   "message": 'Deleted project with id 5'
 }
 ```

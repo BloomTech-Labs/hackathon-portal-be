@@ -2,8 +2,6 @@ const db = require('../database/db.js');
 
 module.exports = {
     find,
-    findByUsername,
-    findByEmail,
     findById,
     updateUser,
     deleteUser
@@ -15,14 +13,6 @@ async function find() {
 
 async function findById(id) {
     return await db('users').where({ id }).first().select('id', 'first_name', 'last_name', 'username', 'email');
-}
-
-async function findByUsername(username) {
-    return await db('users').where({ username }).first().select('id', 'first_name', 'last_name', 'username', 'email');
-}
-
-async function findByEmail(email) {
-    return await db('users').where({ email }).first().select('id', 'username', 'email');
 }
 
 async function updateUser(id, changes) {

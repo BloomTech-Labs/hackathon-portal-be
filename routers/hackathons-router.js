@@ -141,14 +141,15 @@ router.post('/:id/join/:user_id', checkUserHackathon,async (req, res) => {
       await userHackathon.insertHackathonInstance(instance);
       const hackathon = await hackathonDb.findById(id);
       const user = await userDb.findById(user_id);
-      const project = await projectDb.findById(body.project_id)
+      
       if (!body.developer_role) {
          res.status(201).json({
-            message: `Congrats, you registered  ${user.username} for ${hackathon.name} as a ${body.user_hackathon_role} on ${project.title}`
+            message: `Congrats, you registered  ${user.username} for ${hackathon.name} as a ${body.user_hackathon_role}.`
          });
       } else {
+         const project = await projectDb.findById(body.project_id)
          res.status(201).json({
-            message: `Congrats, you registered for ${hackathon.name} as a ${body.user_hackathon_role} doing ${body.developer_role} on ${project.title}`
+            message: `Congrats, you registered for ${hackathon.name} as a ${body.user_hackathon_role} on project ${project.title}.`
          });
       }
    } catch (err) {
