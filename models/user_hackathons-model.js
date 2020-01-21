@@ -8,7 +8,8 @@ module.exports = {
    insertHackathonInstance,
    findHackathonByUserId,
    findIndividualDevelopers,
-   findProjectParticipants
+   findProjectParticipants,
+   findRegistered
 };
 
 async function findTeamUsers(team_id, hackathon_id) {
@@ -108,4 +109,10 @@ async function findProjectParticipants(project_id) {
       )
       .join('users', 'user_id', 'users.id')
       .where({ project_id })
+}
+
+async function findRegistered(hackathon_id, user_id) {
+   return db('user_hackathons')
+   .where({ user_id })
+   .andWhere({ hackathon_id })
 }

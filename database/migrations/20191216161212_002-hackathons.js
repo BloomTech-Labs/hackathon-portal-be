@@ -8,6 +8,7 @@ exports.up = function(knex) {
       tbl.string('start_date').notNullable();
       tbl.string('end_date').notNullable();
       tbl.boolean('is_open');
+      tbl.integer('max_team_participants') // for organizer to set
       tbl.integer('organizer_id')
          .references('id')
          .inTable('users')

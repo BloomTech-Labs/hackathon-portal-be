@@ -3,6 +3,8 @@ const userHackathon = require('../models/user_hackathons-model.js');
 const userDb = require('../models/users-model');
 const router = require('express').Router();
 const { validateHackathon } = require('./hackathon-helpers');
+const projectDb = require('../models/project-model');
+const checkUserHackathon = require('../Api/middleware/check-user-hackathon');
 
 // get list of all hackathons
 router.get('/', async (req, res) => {
@@ -22,8 +24,6 @@ router.get('/:id', async (req, res) => {
       if (hackathon !== -1) {
          // if hackathon exists
          const hackathon_projects = await userHackathon.findHackathonProjects(id);
-         console.log(hackathon_projects, 'hackathon projects')
-
          const projects = [];
          const map = new Map();
          for (const item of hackathon_projects) {
@@ -37,20 +37,17 @@ router.get('/:id', async (req, res) => {
             }
          }
          // map through each team and find the users on that project for that hackathon
-         async function mapTeams(arr, cb) {
+         async function mapProjects(arr, cb) {
             for (let x = 0; x < arr.length; x++) {
                arr[x].participants = await cb(arr[x].project_id);
             }
             return arr;
          }
-         hackathon.projects = await mapTeams(
+         hackathon.projects = await mapProjects(
             hackathon_projects,
             userHackathon.findProjectParticipants
          ); // call the map function
          hackathon.admins = await userHackathon.findHackathonAdmins(id);
-         // hackathon.individual_devs = await userHackathon.findIndividualDevelopers(
-         //    id
-         // );
 
          res.status(200).json(hackathon);
       } else {
@@ -131,7 +128,7 @@ router.delete('/:id/u/:org_id', async (req, res) => {
 });
 
 // join a hackathon as a user
-router.post('/:id/join/:user_id', async (req, res) => {
+router.post('/:id/join/:user_id', checkUserHackathon,async (req, res) => {
    const { id } = req.params;
    const { user_id } = req.params;
    const body = req.body;
@@ -144,13 +141,14 @@ router.post('/:id/join/:user_id', async (req, res) => {
       await userHackathon.insertHackathonInstance(instance);
       const hackathon = await hackathonDb.findById(id);
       const user = await userDb.findById(user_id);
+      const project = await projectDb.findById(body.project_id)
       if (!body.developer_role) {
          res.status(201).json({
-            message: `Congrats, you registered  ${user.username} for ${hackathon.name} as a ${body.user_hackathon_role}`
+            message: `Congrats, you registered  ${user.username} for ${hackathon.name} as a ${body.user_hackathon_role} on ${project.title}`
          });
       } else {
          res.status(201).json({
-            message: `Congrats, you registered for ${hackathon.name} as a ${body.user_hackathon_role} doing ${body.developer_role}`
+            message: `Congrats, you registered for ${hackathon.name} as a ${body.user_hackathon_role} doing ${body.developer_role} on ${project.title}`
          });
       }
    } catch (err) {
