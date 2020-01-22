@@ -145,6 +145,13 @@
     {
       "project_id": 1,
       "project_title": "To-do List",
+      "project_description": "It's a to-do list",
+      "front_end_spots": 10,
+      "back_end_spots": 3,
+      "ios_spots": 3,
+      "android_spots": 1,
+      "data_science_spots": 2,
+      "ux_spots": 1,
       "participants": [
         {
           "user_id": 1,
@@ -155,16 +162,32 @@
         }
       ]
     },
-  "admins": [
     {
-      "username": "alec-blakeley",
-      "user_id": 3,
-      "user_hackathon_role": "organizer"
-    },
+      "project_id": 2,
+      "project_title": "Guidr",
+      "project_description": "It's an app",
+      "front_end_spots": 10,
+      "back_end_spots": 3,
+      "ios_spots": 3,
+      "android_spots": 1,
+      "data_science_spots": 2,
+      "ux_spots": 1,
+      "participants": [
+        {
+          "user_id": 2,
+          "username": "austin-powell",
+          "user_hackathon_role": "participant",
+          "hackathon_id": 2,
+          "developer_role": "front-end"
+        }
+      ]
+    }
+  ],
+  "admins": [
     {
       "username": "joe-schmoe",
       "user_id": 4,
-      "user_hackathon_role": "judge"
+      "user_hackathon_role": "organizer"
     },
     {
       "username": "john-adams",
@@ -230,7 +253,7 @@
 
     POST /hackathons/{hackathon_id}/join/{lorenzo_user_id}
 
-    { 
+    {
       "project_id": 1,
 	    "user_hackathon_role": "participant",
 	    "developer_role": "front-end"

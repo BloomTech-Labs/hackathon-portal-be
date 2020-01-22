@@ -23,7 +23,9 @@ router.get('/:id', async (req, res) => {
       const hackathon = await hackathonDb.findById(id);
       if (hackathon !== -1) {
          // if hackathon exists
-         const hackathon_projects = await userHackathon.findHackathonProjects(id);
+         const hackathon_projects = await userHackathon.findHackathonProjects(
+            id
+         );
          const projects = [];
          const map = new Map();
          for (const item of hackathon_projects) {
@@ -32,7 +34,14 @@ router.get('/:id', async (req, res) => {
                map.set(item.project_id, true); // set any value to Map
                projects.push({
                   project_id: item.project_id,
-                  project_title: item.project_title
+                  project_title: item.project_title,
+                  project_description: item.project_description,
+                  front_end_spots: item.front_end_spots,
+                  back_end_spots: item.back_end_spots,
+                  ios_spots: item.ios_spots,
+                  android_spots: item.android_spots,
+                  data_science_spots: item.data_science_spots,
+                  ux_spots: item.ux_spots
                });
             }
          }
@@ -128,7 +137,7 @@ router.delete('/:id/u/:org_id', async (req, res) => {
 });
 
 // join a hackathon as a user
-router.post('/:id/join/:user_id', checkUserHackathon,async (req, res) => {
+router.post('/:id/join/:user_id', checkUserHackathon, async (req, res) => {
    const { id } = req.params;
    const { user_id } = req.params;
    const body = req.body;
@@ -141,13 +150,13 @@ router.post('/:id/join/:user_id', checkUserHackathon,async (req, res) => {
       await userHackathon.insertHackathonInstance(instance);
       const hackathon = await hackathonDb.findById(id);
       const user = await userDb.findById(user_id);
-      
+
       if (!body.developer_role) {
          res.status(201).json({
             message: `Congrats, you registered  ${user.username} for ${hackathon.name} as a ${body.user_hackathon_role}.`
          });
       } else {
-         const project = await projectDb.findById(body.project_id)
+         const project = await projectDb.findById(body.project_id);
          res.status(201).json({
             message: `Congrats, you registered for ${hackathon.name} as a ${body.user_hackathon_role} on project ${project.title}.`
          });
