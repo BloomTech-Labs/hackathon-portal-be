@@ -5,23 +5,23 @@ module.exports = {
     findById,
     add,
     remove,
-    update
+    update,
 };
 
 
 
 async function find() {
-    return await db('teams')
+    return await db('projects')
 }
 
 async function findById(id) {
-    return db('teams')
+    return db('projects')
         .where({ id })
         .first();
 }
 
 async function add(team) {
-    return db('teams')
+    return db('projects')
         .insert(team, 'id')
         .then(ids => {
             const [id] = ids
@@ -30,17 +30,19 @@ async function add(team) {
 }
 
 async function remove(id) {
-    return db('teams')
+    return db('projects')
         .where({ id })
         .del();
 }
 
 async function update(id, changes) {
-    return db('teams')
+    return db('projects')
         .where({ id })
         .update(changes)
         .then(u => {
             return findById(id)
         })
 }
+
+
 

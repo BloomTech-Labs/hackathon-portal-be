@@ -1,7 +1,7 @@
 exports.seed = function(knex) {
    // Deletes ALL existing entries
    return knex('hackathons')
-      .del()
+      .truncate()
       .then(function() {
          // Inserts seed entries
          return knex('hackathons').insert([
@@ -15,7 +15,8 @@ exports.seed = function(knex) {
                end_date:
                   'Wed Jan 22 2020 14:37:00 GMT-0500 (Eastern Standard Time)',
                is_open: true,
-               organizer_id: 9
+               organizer_id: 9,
+               max_team_participants: 20,
             },
             {
                name: "Bill's Hackathon",
@@ -27,7 +28,8 @@ exports.seed = function(knex) {
                end_date:
                   'Thurs Jan 23 2020 14:37:00 GMT-0500 (Eastern Standard Time)',
                is_open: false,
-               organizer_id: 10
+               organizer_id: 10,
+               max_team_participants: 20,
             },
             {
                name: "Bob's Hackathon",
@@ -39,7 +41,8 @@ exports.seed = function(knex) {
                end_date:
                   'Fri Jan 24 2020 14:37:00 GMT-0500 (Eastern Standard Time)',
                is_open: true,
-               organizer_id: 11
+               organizer_id: 11,
+               max_team_participants: 35,
             },
             {
                name: "Ted's Hackathon",
