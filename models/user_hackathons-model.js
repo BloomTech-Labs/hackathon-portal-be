@@ -9,10 +9,19 @@ module.exports = {
    findRegistered
 };
 
-
 async function findHackathonProjects(hackathon_id) {
    return db('projects')
-      .select('projects.id as project_id', 'projects.title as project_title')
+      .select(
+         'projects.id as project_id',
+         'projects.title as project_title',
+         'projects.description as project_description',
+         'front_end_spots',
+         'back_end_spots',
+         'ios_spots',
+         'android_spots',
+         'data_science_spots',
+         'ux_spots'
+      )
       .where({ hackathon_id });
 }
 
@@ -23,7 +32,6 @@ async function findHackathonAdmins(hackathon_id) {
       .whereNull('developer_role')
       .andWhere({ hackathon_id });
 }
-
 
 async function insertHackathonInstance(instance) {
    return db('user_hackathons').insert(instance);
@@ -47,18 +55,17 @@ async function findHackathonByUserId(user_id) {
 
 async function findUserProjectsByHackathon(hackathon_id, user_id) {
    return await db('projects')
-   .select(
-      'users.id as user_id',
-      'projects.id as project_id',
-      'projects.title',
-      'projects.description',
-   )
-   .join('users', 'user_id', 'users.id')
-   .where({ hackathon_id })
-   .andWhere({ user_id })
-   .first()
+      .select(
+         'users.id as user_id',
+         'projects.id as project_id',
+         'projects.title',
+         'projects.description'
+      )
+      .join('users', 'user_id', 'users.id')
+      .where({ hackathon_id })
+      .andWhere({ user_id })
+      .first();
 }
-
 
 async function findProjectParticipants(project_id) {
    return db('user_hackathons')
@@ -70,11 +77,11 @@ async function findProjectParticipants(project_id) {
          'developer_role'
       )
       .join('users', 'user_id', 'users.id')
-      .where({ project_id })
+      .where({ project_id });
 }
 
 async function findRegistered(hackathon_id, user_id) {
    return db('user_hackathons')
-   .where({ user_id })
-   .andWhere({ hackathon_id })
+      .where({ user_id })
+      .andWhere({ hackathon_id });
 }
