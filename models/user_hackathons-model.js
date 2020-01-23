@@ -54,29 +54,13 @@ async function findHackathonByUserId(user_id) {
 }
 
 async function findUserProjectsByHackathon(hackathon_id, user_id) {
-   // return await db('user_hackathons')
-   //    .select(
-   //       'user_id',
-   //       'projects.id as project_id',
-   //       'projects.title',
-   //       'projects.description',
-   //       'hackathon_id'
-   //    )
-   //    .join('projects', 'project_id', 'projects.id')
-   //    .where({ hackathon_id })
-   //    .andWhere({ user_id });
-
-   // select project_id, projects.title user_id from user_hackathons
-   // join users on user_id = users.id
-   // join projects on project_id = projects.id
-   // where user_hackathons.hackathon_id = 1 and user_id = 1;
-
    return db('user_hackathons')
    .select('project_id', 'projects.title', 'projects.description', 'user_id')
    .join('users', 'user_id', 'users.id')
    .join('projects', 'project_id', 'projects.id')
    .where('user_hackathons.hackathon_id', '=', hackathon_id)
-   .andWhere({ user_id });
+   .andWhere({ user_id })
+   .first();
 }
 
 async function findProjectParticipants(project_id) {
