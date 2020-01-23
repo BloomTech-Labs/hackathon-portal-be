@@ -22,7 +22,8 @@ router.get('/:id', async (req, res) => {
          }
          return arr
       }
-      user.hackathons = await mapProjects(user_hackathons, userHackathonDb.findUserProjectsByHackathon)
+      // user.hackathons = await mapProjects(user_hackathons, userHackathonDb.findUserProjectsByHackathon)
+      user.hackathons = user_hackathons;
       res.status(200).json(user);
    } catch (err) {
       res.status(500).json(err);
