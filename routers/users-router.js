@@ -12,13 +12,13 @@ router.get('/', async (req, res) => {
 });
 
 router.get('/:id', async (req, res) => {
-   const { id } = req.params;
+   const user_id  = req.params.id;
    try {
-      const user = await userDb.findById(id);
-      const user_hackathons = await userHackathonDb.findHackathonByUserId(id);
+      const user = await userDb.findById(user_id);
+      const user_hackathons = await userHackathonDb.findHackathonByUserId(user_id);
       async function mapProjects(arr, cb) {
          for (let x=0; x<arr.length; x++) {
-            arr[x].project = await cb(arr[x].hackathon_id, id)
+            arr[x].project = await cb(arr[x].hackathon_id, user_id)
          }
          return arr
       }
