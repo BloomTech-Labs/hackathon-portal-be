@@ -19,11 +19,12 @@ router.get('/:id', async (req, res) => {
       async function mapProjects(arr, cb) {
          for (let x=0; x<arr.length; x++) {
             arr[x].project = await cb(arr[x].hackathon_id, user_id)
+            console.log(arr[x])
          }
          return arr
       }
-      // user.hackathons = await mapProjects(user_hackathons, userHackathonDb.findUserProjectsByHackathon)
-      user.hackathons = user_hackathons;
+      user.hackathons = await mapProjects(user_hackathons, userHackathonDb.findUserProjectsByHackathon)
+      //user.hackathons = user_hackathons;
       res.status(200).json(user);
    } catch (err) {
       res.status(500).json(err);
