@@ -54,17 +54,13 @@ async function findHackathonByUserId(user_id) {
 }
 
 async function findUserProjectsByHackathon(hackathon_id, user_id) {
-   return await db('projects')
-      .select(
-         'users.id as user_id',
-         'projects.id as project_id',
-         'projects.title',
-         'projects.description'
-      )
-      .join('users', 'user_id', 'users.id')
-      .where({ hackathon_id })
-      .andWhere({ user_id })
-      .first();
+   return db('user_hackathons')
+   .select('project_id', 'projects.title', 'projects.description', 'user_id')
+   .join('users', 'user_id', 'users.id')
+   .join('projects', 'project_id', 'projects.id')
+   .where('user_hackathons.hackathon_id', '=', hackathon_id)
+   .andWhere({ user_id })
+   .first();
 }
 
 async function findProjectParticipants(project_id) {
