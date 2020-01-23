@@ -20,9 +20,9 @@ async function findById(id) {
         .first();
 }
 
-async function add(team) {
+async function add(project) {
     return db('projects')
-        .insert(team, 'id')
+        .insert(project, 'id')
         .then(ids => {
             const [id] = ids
             return findById(id)
