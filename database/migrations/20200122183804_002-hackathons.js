@@ -12,8 +12,8 @@ exports.up = function(knex) {
        tbl.integer('organizer_id')
           .references('id')
           .inTable('users')
-          .onUpdate('CASCADE')
-          .onDelete('CASCADE');
+          .onUpdate('RESTRICT')
+          .onDelete('RESTRICT');
     });
  };
  
