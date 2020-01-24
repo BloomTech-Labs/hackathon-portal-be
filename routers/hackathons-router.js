@@ -41,7 +41,8 @@ router.get('/:id', async (req, res) => {
                   ios_spots: item.ios_spots,
                   android_spots: item.android_spots,
                   data_science_spots: item.data_science_spots,
-                  ux_spots: item.ux_spots
+                  ux_spots: item.ux_spots,
+                  is_approved: item.is_approved
                });
             }
          }

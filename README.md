@@ -152,6 +152,7 @@
       "android_spots": 1,
       "data_science_spots": 2,
       "ux_spots": 1,
+      "is_approved": 1,
       "participants": [
         {
           "user_id": 1,
@@ -172,6 +173,7 @@
       "android_spots": 1,
       "data_science_spots": 2,
       "ux_spots": 1,
+      "is_approved": 1,
       "participants": [
         {
           "user_id": 2,
