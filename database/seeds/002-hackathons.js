@@ -11,9 +11,9 @@ exports.seed = function(knex) {
                url: 'https://www.tomshackathon.com',
                location: 'Denver, CO',
                start_date:
-                  'Sat Jan 18 2020 14:37:00 GMT-0500 (Eastern Standard Time)',
+                  'Mon Apr 6 2020 14:37:00 GMT-0500 (Eastern Standard Time)',
                end_date:
-                  'Wed Jan 22 2020 14:37:00 GMT-0500 (Eastern Standard Time)',
+                  'Wed Apr 8 2020 14:37:00 GMT-0500 (Eastern Standard Time)',
                is_open: true,
                organizer_id: 9,
                max_team_participants: 20,
@@ -24,10 +24,10 @@ exports.seed = function(knex) {
                url: 'https://www.billshackathon.com',
                location: 'Chicago, IL',
                start_date:
-                  'Sun Jan 19 2020 14:37:00 GMT-0500 (Eastern Standard Time)',
+                  'Mon Apr 20 2020 14:37:00 GMT-0500 (Eastern Standard Time)',
                end_date:
-                  'Thurs Jan 23 2020 14:37:00 GMT-0500 (Eastern Standard Time)',
-               is_open: false,
+                  'Wed Apr 22 2020 14:37:00 GMT-0500 (Eastern Standard Time)',
+               is_open: true,
                organizer_id: 10,
                max_team_participants: 20,
             },
@@ -40,7 +40,7 @@ exports.seed = function(knex) {
                   'Mon Jan 20 2020 14:37:00 GMT-0500 (Eastern Standard Time)',
                end_date:
                   'Fri Jan 24 2020 14:37:00 GMT-0500 (Eastern Standard Time)',
-               is_open: true,
+               is_open: false,
                organizer_id: 11,
                max_team_participants: 35,
             },
