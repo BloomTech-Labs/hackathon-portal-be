@@ -4,7 +4,7 @@ exports.up = function (knex) {
         tbl.increments()
         tbl.string('title')
         .notNullable()
-        tbl.string('description')
+        tbl.string('description', 1500)
         .notNullable()
         tbl.boolean('is_approved')
         .notNullable()
