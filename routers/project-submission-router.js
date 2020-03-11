@@ -59,7 +59,7 @@ router.post('/', async (req, res) => {
 
     try {
         const created = await projectDb.add(project_data)
-        res.status(201).json({ message: 'Project was successfully created', data: created })
+        res.status(201).json({ message: 'Project was successfully submitted', data: created })
     } catch (err) {
         console.log(err)
         res.status(500).json(err)
