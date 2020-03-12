@@ -7,6 +7,7 @@ router.get('/', async (req, res) => {
       const users = await userDb.find();
       res.status(200).json(users);
    } catch (err) {
+      console.log(err)
       res.status(500).json(err);
    }
 });
@@ -27,6 +28,7 @@ router.get('/:id', async (req, res) => {
       //user.hackathons = user_hackathons;
       res.status(200).json(user);
    } catch (err) {
+      console.log(err)
       res.status(500).json(err);
    }
 });
@@ -46,6 +48,7 @@ router.put('/:id', async (req, res) => {
          });
       }
    } catch (err) {
+      console.log(err)
       res.status(500).json(err);
    }
 });
@@ -58,6 +61,7 @@ router.delete('/:id', async (req, res) => {
          message: `Deleted user with id ${id} successfully`
       });
    } catch (err) {
+      console.log(err)
       res.status(500).json(err);
    }
 });
