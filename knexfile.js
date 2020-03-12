@@ -1,10 +1,12 @@
 module.exports = {
    development: {
-      client: 'sqlite3',
+      client: 'pg',
       connection: {
-         filename: './database/hackathon.db3'
+        database: 'hpDev',
+        user: 'postgres',
+        password: 'password',
+        host: '127.0.0.1'
       },
-      useNullAsDefault: true,
       migrations: {
          directory: './database/migrations'
       },

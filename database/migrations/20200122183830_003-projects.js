@@ -21,6 +21,8 @@ exports.up = function (knex) {
         .inTable('hackathons')
         .onUpdate('CASCADE')
         .onDelete('CASCADE')
+        tbl.boolean('submitted')
+        .defaultTo(false)
         tbl.integer('front_end_spots')
         .notNullable()
         tbl.integer('back_end_spots')
