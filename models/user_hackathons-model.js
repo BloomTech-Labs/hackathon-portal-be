@@ -56,7 +56,7 @@ async function findHackathonByUserId(user_id) {
 
 async function findUserProjectsByHackathon(hackathon_id, user_id) {
    return db('user_hackathons')
-      .select('project_id', 'projects.title', 'projects.description', 'user_id')
+      .select('project_id', 'projects.title', 'projects.description', 'submitted', 'user_id')
       .join('users', 'user_id', 'users.id')
       .join('projects', 'project_id', 'projects.id')
       .where('user_hackathons.hackathon_id', '=', hackathon_id)
