@@ -14,9 +14,9 @@ async function find() {
     return await db('project_submission')
 }
 
-async function findById(id) {
+async function findById(project_id) {
     return db('project_submission')
-        .where({ id })
+        .where({ project_id })
         .first();
 }
 

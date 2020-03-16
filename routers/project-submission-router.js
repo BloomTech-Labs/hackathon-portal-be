@@ -16,15 +16,16 @@ router.get('/', async (req, res) => {
 });
 
 // Get project by id
-router.get('/:id', async (req, res) => {
-    const { id } = req.params;
+router.get('/:projectId', async (req, res) => {
+    const { projectId } = req.params;
+    console.log(req.params)
     try {
-        const project = await projectDb.findById(id)
+        const project = await projectDb.findById(projectId)
         if (!project) {
             res.status(404).json({ error: "Project doesn't exist" })
         } else {
             try {
-                let participants = await userHackathonDb.findProjectParticipants(id)
+                let participants = await userHackathonDb.findProjectParticipants(projectId)
                     project.participants = participants
 
                 res.status(200).json(project)
