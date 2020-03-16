@@ -21,7 +21,8 @@ async function findHackathonProjects(hackathon_id) {
          'android_spots',
          'data_science_spots',
          'ux_spots',
-         'is_approved'
+         'is_approved',
+         'submitted'
       )
       .where({ hackathon_id });
 }
@@ -45,6 +46,7 @@ async function findHackathonByUserId(user_id) {
          'hackathons.name as hackathon_name',
          'user_hackathon_role',
          'developer_role',
+         'hackathons.location as location',
          'hackathons.start_date as start_date',
          'hackathons.end_date as end_date',
          'hackathons.description as hackathon_description'
