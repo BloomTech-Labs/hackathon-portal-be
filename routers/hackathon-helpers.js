@@ -16,6 +16,7 @@ function validateHackathon(hackathon) {
    };
 }
 
+
 module.exports = {
    validateHackathon
 };

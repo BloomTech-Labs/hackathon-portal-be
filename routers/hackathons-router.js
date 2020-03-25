@@ -1,3 +1,5 @@
+// on the frontend assignRole is the action dispatching to the endpoint of /:id/join/:user_id
+
 const hackathonDb = require('../models/hackathons-model.js');
 const userHackathon = require('../models/user_hackathons-model.js');
 const userDb = require('../models/users-model');
