@@ -1,3 +1,5 @@
+//these endpoints are not completely flushed out and could use another once over.
+
 const hackathonJudgesDb = require('../models/hackathon-judges-model');
 const router = require('express').Router();
 
@@ -65,5 +67,3 @@ router.delete('/:id', async (req, res) => {
 
 
 module.exports = router;
-
-//a

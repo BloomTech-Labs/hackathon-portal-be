@@ -153,6 +153,7 @@
       "data_science_spots": 2,
       "ux_spots": 1,
       "is_approved": 1,
+      "submitted": true,
       "participants": [
         {
           "user_id": 1,
@@ -174,6 +175,7 @@
       "data_science_spots": 2,
       "ux_spots": 1,
       "is_approved": 1,
+      "submitted": false,
       "participants": [
         {
           "user_id": 2,
@@ -424,5 +426,80 @@
 ```
 {
    "message": 'Deleted project with id 5'
+}
+```
+
+## Project Submission
+
+> GET /project-submission
+
+### Returns an array of all submitted projects
+
+```
+[
+    {
+        "id": 1,
+        "project_id": 1,
+        "github_url": "github.com",
+        "deployed_url": "randomurl",
+        "video_url": "http://res.cloudinary.com/demo/video/upload/v1427018743/ygzxwxmflekucvqcrb8c.mp4"
+    },
+    {
+        "id": 2,
+        "project_id": 2,
+        "github_url": "github.com",
+        "deployed_url": "randomurl",
+        "video_url": "http://res.cloudinary.com/demo/video/upload/v1427018743/ygzxwxmflekucvqcrb8c.mp4"
+    }
+]{
+    "message": "Deleted project with id 1"
+}
+```
+
+> GET /project-submission/:projectId 
+
+### Returns an object with the submitted information for the selected project
+
+```
+{
+    "id": 1,
+    "project_id": 1,
+    "github_url": "github.com",
+    "deployed_url": "randomurl",
+    "video_url": "http://res.cloudinary.com/demo/video/upload/v1427018743/ygzxwxmflekucvqcrb8c.mp4"
+}
+```
+
+> POST /project-submission/
+
+### Submits completed projects information to the database and returns a success message.
+
+```
+{
+    "message": "Project was successfully submitted"
+}
+```
+
+> PUT /project-submission/:id
+
+### Updates a specific project submission and then returns the information that was updated.
+
+```
+{
+    "id": 1,
+    "project_id": 1,
+    "github_url": "updated",
+    "deployed_url": "updated",
+    "video_url": "http://res.cloudinary.com/demo/video/upload/v1427018743/ygzxwxmflekucvqcrb8c.mp4"
+}
+```
+
+> DELETE /project-submission/:id
+
+### Deletes a specified project submission.
+
+```
+{
+    "message": "Deleted project-submission with id 1"
 }
 ```
