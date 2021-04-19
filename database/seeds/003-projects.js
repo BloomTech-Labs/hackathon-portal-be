@@ -17,6 +17,7 @@ exports.seed = function (knex) {
           ux_spots: 1,
           creator_id: 1,
           hackathon_id: 1,
+          is_solo: false
         },
         {
           title: 'Guidr',
@@ -30,6 +31,7 @@ exports.seed = function (knex) {
           ux_spots: 1,
           creator_id: 5,
           hackathon_id: 1,
+          is_solo: false
         },
         {
           title: 'Community Calendar',
@@ -43,19 +45,22 @@ exports.seed = function (knex) {
           creator_id: 2,
           hackathon_id: 2,
           is_approved: false,
+          is_solo: false
         },
         {
           title: 'Expat Journal',
           description: "It's a project",
           is_approved: true,
-          front_end_spots: 3,
-          back_end_spots: 1,
-          ios_spots: 1,
-          android_spots: 1,
-          data_science_spots: 1,
-          ux_spots: 1,
-          creator_id: 3,
+          front_end_spots: 0,
+          back_end_spots: 0,
+          ios_spots: 0,
+          android_spots: 0,
+          data_science_spots: 0,
+          ux_spots: 0,
+          creator_id: 0,
           hackathon_id: 3,
+          is_solo: true,
+          is_solo_and_taken: false
         },
       ]);
     });

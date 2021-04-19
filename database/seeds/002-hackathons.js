@@ -37,11 +37,11 @@ exports.seed = function(knex) {
                url: 'https://www.bobsshackathon.com',
                location: 'Austin, TX',
                start_date:
-                  'Mon Jan 20 2020 14:37:00 GMT-0500 (Eastern Standard Time)',
+                  'Sat Apr 17 2020 14:37:00 GMT-0500 (Eastern Standard Time)',
                end_date:
-                  'Fri Jan 24 2020 14:37:00 GMT-0500 (Eastern Standard Time)',
-               is_open: false,
-               organizer_id: 11,
+                  'Tues Apr 20 2021 14:37:00 GMT-0500 (Eastern Standard Time)',
+               is_open: true,
+               organizer_id: 1,
                max_team_participants: 35,
             },
             {

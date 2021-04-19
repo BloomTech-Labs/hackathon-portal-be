@@ -41,14 +41,18 @@ router.put('/:id', async (req, res) => {
          delete updated.password
          res.status(200).json(updated);
       } else {
-         res.status(401).json({
-            error: `The specified user id does not exist`
+         console.log(id, user)
+         const added = await userDb.addUser(id, changes);
+         res.status(201).json({
+            message: `Created user with id ${id}`
          });
       }
    } catch (err) {
       res.status(500).json(err);
    }
 });
+
+
 
 router.delete('/:id', async (req, res) => {
    const { id } = req.params;

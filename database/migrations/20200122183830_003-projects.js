@@ -33,6 +33,10 @@ exports.up = function (knex) {
         .notNullable()
         tbl.integer('ux_spots')
         .notNullable()
+        tbl.boolean("is_solo")
+        .defaultTo(false)
+        tbl.boolean("is_solo_and_taken")
+        .defaultTo(false)
       })
   };
   

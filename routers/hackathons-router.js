@@ -32,6 +32,7 @@ router.get('/:id', async (req, res) => {
             // remove duplicate instances
             if (!map.has(item.project_id)) {
                map.set(item.project_id, true); // set any value to Map
+   
                projects.push({
                   project_id: item.project_id,
                   project_title: item.project_title,
@@ -42,7 +43,9 @@ router.get('/:id', async (req, res) => {
                   android_spots: item.android_spots,
                   data_science_spots: item.data_science_spots,
                   ux_spots: item.ux_spots,
-                  is_approved: item.is_approved
+                  is_approved: item.is_approved,
+                  is_solo: item.is_solo,
+                  is_solo_and_taken: item.is_solo_and_taken
                });
             }
          }
@@ -53,11 +56,11 @@ router.get('/:id', async (req, res) => {
             }
             return arr;
          }
-         hackathon.projects = await mapProjects(
-            hackathon_projects,
-            userHackathon.findProjectParticipants
-         ); // call the map function
-         hackathon.admins = await userHackathon.findHackathonAdmins(id);
+        hackathon.projects = await mapProjects(
+           hackathon_projects,
+          userHackathon.findProjectParticipants
+        );
+       hackathon.admins = await userHackathon.findHackathonAdmins(id);
 
          res.status(200).json(hackathon);
       } else {

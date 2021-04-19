@@ -4,7 +4,8 @@ module.exports = {
     find,
     findById,
     updateUser,
-    deleteUser
+    deleteUser,
+    addUser
 };
 
 async function find() {
@@ -12,7 +13,7 @@ async function find() {
 }
 
 async function findById(id) {
-    return await db('users').where({ id }).first().select('id', 'first_name', 'last_name', 'username', 'email');
+    return await db('users').where({ id }).first().select('id', 'username', 'email');
 }
 
 async function updateUser(id, changes) {
@@ -28,4 +29,15 @@ async function deleteUser(id) {
     await db('users')
         .where({ id })
         .del()
+}
+
+async function addUser(id, user) {
+    await db('users').insert({
+        ...user,
+        id: id
+    })
+    .then(ids => {
+        const [id] = ids
+        return findById(id)
+    })
 }
